@@ -14,7 +14,7 @@ $submit_last = $_POST[submit_last];
 $num_submissions = $_POST[num_submissions];
 $update_name1 = $_POST[update_name1];
 
-$title="Database of Cultural Entomology";
+$title="Insects Incorporated: Database of Cultural Entomology";
 
 ?>
 

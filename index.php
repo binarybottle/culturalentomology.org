@@ -7,7 +7,7 @@ include_once("shared/header.html");
 include_once("shared/banner.html"); 
 ?>
 
-<title>Search Database of Cultural Entomology</title>
+<title>Search the Insects Incorporated database of cultural entomology</title>
 
 <?php 
 

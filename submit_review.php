@@ -82,8 +82,8 @@ if ($_POST['submitForm3'] == "Respond")
    // Response: Accept/Decline
    //-------------------------
       $mail_to      = $email;  //$email.', barrett@pupating.org';
-      $mail_from    = 'From: Database of Cultural Entomology';
-      $mail_subject = 'Submission to the Database of Cultural Entomology';
+      $mail_from    = 'From: Insects Incorporated';
+      $mail_subject = 'Submission to Insects Incorporated Database of Cultural Entomology';
 
       if ($_POST['decision'] == "accept")
       {
@@ -94,9 +94,9 @@ if ($_POST['submitForm3'] == "Respond")
 
      Dear $firstname $lastname,
 
-     Thank you for submitting images for review to the Database of Cultural Entomology!
+     Thank you for submitting images for review to the Insects Incorporated database of cultural entomology!
 
-     We are happy to inform you that the Database of Cultural Entomology has accepted your images for inclusion in its expanding, searchable database. You will be able to search for your images by typing in your name or any keyword in the website search field.
+     We are happy to inform you that Insects Incorporated has accepted your images for inclusion in its expanding, searchable database. You will be able to search for your images by typing in your name or any keyword in the website search field.
 
      Please feel free to submit more works for review, and you are welcome to email us at barrett@pupating.org.
 
@@ -126,9 +126,9 @@ if ($_POST['submitForm3'] == "Respond")
 
      Dear $firstname $lastname,
 
-     Thank you for submitting works for review by the Database of Cultural Entomology.
+     Thank you for submitting works for review by Insects Incorporated.
 
-     Unfortunately, we will not include these works in the Database of Cultural Entomology's image database at this time. Please feel free to submit other works for review, or email us at barrett@pupating.org.
+     Unfortunately, we will not include these works in the Insects Incorporated database of cultural entomology at this time. Please feel free to submit other works for review, or email us at barrett@pupating.org.
 
      Sincerely,
      Barrett Klein

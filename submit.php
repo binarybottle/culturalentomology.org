@@ -9,7 +9,7 @@
  include_once("shared/header.html");
  include_once("shared/banner.html");
 
- $title="Database of Cultural Entomology";
+ $title="Insects Incorporated";
 
 // Determine if the submit button has been clicked. 
 // If so, begin validating form data.
@@ -106,7 +106,7 @@ if ($_POST['submitForm'] == "Submit")
 
 <p>
 <!--font color="red">Upgrade in progress -- don't submit images yet!</font><br /-->
-The Database of Cultural Entomology would like to expand its image database with well-annotated examples of cultural entomology.
+Insects Incorporated would like to expand its image database with well-annotated examples of cultural entomology.
 Please contribute to the database! Simply provide some contact information about yourself, then upload and label images for review.
 </p> 
 <p>

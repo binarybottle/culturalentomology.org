@@ -1,11 +1,11 @@
 <?php include_once("shared/header.html"); ?>
 <?php include_once("shared/banner.html"); ?>
 
-<title>Information about the Database of Cultural Entomology</title>
+<title>Information about Insects Incorporated</title>
 
 <div class="main">
 
-<h1>How to use the database</h1>
+<h1>How to use the Insects Incorporated database</h1>
 
 <p>On the home page, type words in the search box. For 
 <A HREF="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" target=“_”>
@@ -23,7 +23,7 @@ Boolean searches</A>, you can use symbols to narrow your search (example: "+bees
 
 <p>Humans have included insects in art for millennia, either symbolically, literally or physically (insect products or bodies as art media). The practice of incorporating insects in art is one of my cultural entomology interests.</p>
 
-<p>The Database of Cultural Entomology is accepting submissions with the goal of establishing the most comprehensive, manually annotated cultural entomology database in the world. 
+<p>Insects Incorporated is accepting submissions with the goal of establishing the most comprehensive, manually annotated cultural entomology database in the world. 
 We anticipate that it will be a valuable resource for research and for education at all levels, and that it will also be of general interest to a wide audience on the Internet.</p>
 
 <!--img src="http://culturalentomology.org/decor/Ethnoentomology_collage_web.jpg" id="logo" width="480px">

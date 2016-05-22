@@ -1,0 +1,153 @@
+
+body {
+#        background-color: #FFFFF0;
+        font-family: Helvetica, Verdana, Times New Roman, Helvetica, sans-serif;
+        font-size: 100%;
+#        color: #996633;
+}
+
+.textblocks {
+        position: relative;
+        font-family: Verdana, Times New Roman, Helvetica, 
+        #font-family: Georgia, Times New Roman, Helvetica, sans-serif;
+        font-size: 90%;
+        #width: 800px;
+}
+
+.ID {
+        font-size: 80%;
+}
+.title {
+        font-size: 100%;
+}
+.subtitle {
+        font-size: 90%;
+}
+.about {
+        font-size: 80%;
+}
+.credits {
+        font-size: 90%;
+}
+.notes {
+        font-family: Georgia, Times New Roman, Helvetica, sans-serif;
+        font-size: 100%;
+}
+.collection {
+        font-size: 90%;
+}
+
+a:link {
+	color: #CC0000;
+	text-decoration:none;
+}
+a:visited {
+	color: #CC3333;
+	text-decoration:none;
+}
+a:hover {
+	color: #FF0000;
+	text-decoration:none;
+}
+a:active {
+	color: #FF9933;
+	text-decoration:none;
+}
+
+div.bruce_banner {
+  position: absolute;
+  left:   200px;
+  top:    40px;
+}
+div.subhuman_banner {
+  position: relative;
+  left:   0px;
+  top:    8px;
+}
+#logo {
+  position:  relative;
+  left:          42px;
+  top:           20px;
+  border:           0;
+}
+
+
+div.searchform {
+  position:  relative;
+  left:      150px;
+  top:       -20px;
+}
+#search_exs {
+  position:  relative;
+  left:         120px;
+  top:          5px;
+  font-size:    70%;
+}
+
+div.main {
+  position: absolute;
+  left:   50px;
+  right:  50px;
+  top:    160px;
+  font-size:     90%;
+}
+div.main2 {
+  position: absolute;
+  left:   500px;
+  top:    500px;
+}
+
+div.footer {
+  position: relative;
+  left:   50px;
+  top:    50px;
+  font-size: 80%;
+}
+
+h1 { 
+        font-size: 120%;
+}
+h2 { 
+        font-size: 100%;
+}
+h3 { 
+        font-size: 110%;
+}
+h4 { 
+        font-size: 80%;
+}
+
+.searchcaptions { 
+        font-size: 80%;
+}
+
+.foundresults { 
+        font-size: 80%;
+}
+
+.font60 { 
+        font-size: 60%;
+}
+.font80 { 
+        font-size: 80%;
+}
+
+.redfont {
+        position: relative;
+        top: 150px; 
+        left: 50px; 
+        font-color: red;
+}
+
+input {
+        background-color: #FFFFFF;
+        color: #996633;
+}
+textarea {
+        background-color: #FFFFFF;
+        color: #996633;
+}
+select {
+        background-color: #FFFFFF;
+        color: #996633;
+}

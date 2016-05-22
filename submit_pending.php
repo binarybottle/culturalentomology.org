@@ -3,7 +3,7 @@
 //
 // Website by Arno Klein arno@binarybottle.com . 2016 . Apache v2.0 license
 //
-include_once("../../db/culturalentomology_db.php");
+include_once("../db/culturalentomology_db.php");
 include_once("shared/header.html");
 include_once("shared/banner.html");
 
@@ -89,7 +89,7 @@ If you have any comments or questions, please contact us at: barrett[at]pupating
       }          //if ($num_submissions>0) {
 
 
-$review_link  = 'http://pupating.org/doce/submit_review.php?userID='.$userID.
+$review_link  = 'http://culturalentomology.org/submit_review.php?userID='.$userID.
                 '&firstname='.$submit_first.'&lastname='.$submit_last.'&email='.$submit_email;
 $mail_to      = 'barrett@pupating.org';
 $mail_from    = 'From: Database of Cultural Entomology';

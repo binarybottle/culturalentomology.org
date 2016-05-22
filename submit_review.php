@@ -162,7 +162,7 @@ if ($_POST['submitForm3'] == "Respond")
    //------------
       echo '<form method="post" enctype="multipart/form-data">';
       echo 'If accepting the submissions, rescale by viewing them at 
-            <A HREF="javascript:popUp(\'http://pupating.org/doce/images\')">images</A><br /><br />';
+            <A HREF="javascript:popUp(\'http://culturalentomology.org/images\')">images</A><br /><br />';
       echo $spc.'  <b>Accept</b>  <input name="decision" type="radio" value="accept" /><br />';
       echo $spc.'  <b>Decline</b> <input name="decision" type="radio" value="decline" /><br /><br />';
       echo $spc.'  <input type="submit" name="submitForm3" value="Respond" /><br /><br />';

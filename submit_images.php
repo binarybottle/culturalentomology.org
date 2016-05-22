@@ -5,7 +5,7 @@
 // Website by Arno Klein arno@binarybottle.com . 2016 . Apache v2.0 license
 //
 
-include_once("../../db/culturalentomology_db.php");
+include_once("../db/culturalentomology_db.php");
 include_once("shared/header.html");
 
 $submit_first = $_POST['submit_first'];

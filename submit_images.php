@@ -150,12 +150,14 @@ if ($_POST['submitForm2'] == "Upload")
       echo '<div class="textblocks">';
 
       echo "<p>For review purposes, please upload up to $max_uploads images. <br />
-	  After uploading them, you will be requested to provide further information.
-	  <br /><br />
-	  Images must be in either JPEG, GIF, PNG, or BMP format, and no larger than ".$max_MB."MB each.</p>
-      </div>
-      <br />
-      <table border='0' width='600' cellspacing='5' cellpadding='0' align='left'>";
+  After uploading them, you will be requested to provide further information.
+  <br /><br />
+  Images must be in either JPEG, GIF, PNG, or BMP format, and no larger than ".$max_MB."MB each.</p>
+  <p>Content you submit to the database should not contain third party copyrighted material, or material that is subject to other third party proprietary rights, unless you have permission.</p>
+  </div>
+  <br />
+
+  <table border='0' width='600' cellspacing='5' cellpadding='0' align='left'>";
 
    // Filenames
       for($i=1; $i<=$max_uploads; $i++) {

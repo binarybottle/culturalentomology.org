@@ -200,19 +200,34 @@ if ($_POST['submitForm3'] == "Respond")
       $filenames = array();
       while($row = mysql_fetch_object($result_submissions))
       {
-         $ID =               $row->pk_image_id;
-         $creator =          $row->creator;
-         $title =            $row->title;
-         $medium =           $row->object_medium;
-         $date =             $row->year;
-         $notes =            $row->description;
-         $name =             $row->image_filename;
-         $collection =       $row->collection;
-         $url =              $row->url;
+         $ID = $row->id;
+         $image_filename = $row->image_filename;
+         $title = $row->title;
+         $primary_category = $row->primary_category;
+         $category2 = $row->category2;
+         $category3 = $row->category3;
+         $category4 = $row->category4;
+         $creator = $row->creator;
+         $year = $row->year;
+         $object_medium = $row->object_medium;
+         $object_dimensions = $row->object_dimensions;
+         $time_period = $row->time_period;
+         $nation = $row->nation;
+         $city = $row->city;
+         $taxon_common_name = $row->taxon_common_name;
+         $taxon_order = $row->taxon_order;
+         $taxon_family = $row->taxon_family;
+         $taxon_species = $row->taxon_species;
+         $url = $row->url;
+         $collection = $row->collection;
+         $citation = $row->citation;
+         $description = $row->description;
+         $comments = $row->comments;
+         $permission_information = $row->permission_information;
 
       // Store filenames
          $fileIDs[$irow] = $ID;
-         $filenames[$irow] = $name;
+         $filenames[$irow] = $image_filename;
 
       // Line
          echo '<hr size="1" />';
@@ -221,24 +236,34 @@ if ($_POST['submitForm3'] == "Respond")
          echo '<table width="800" border="0" cellspacing="0" cellpadding="10">';
          echo ' <tr>';
          echo '  <td width="240">';
-         echo '   <img src="images/'.$name.'" height="240">';
+         echo '   <img src="images/'.$image_filename.'" height="240">';
          echo '   <span class="font80">'.$ID.'</span>';
          echo '  </td>';
          echo '  <td width="560">';
 
       // Input text
-         echo '<i>Title:</i> '.stripslashes($title).'<br />';
-         echo '<i>Creator:</i> '.stripslashes($creator).'<br />';
-         echo '<i>Medium:</i> '.stripslashes($medium).'<br />';        
-         echo '<i>Year:</i> ';
-         if ($date!="0") {
-            echo $date.' ';
-         }
-         echo '<br />';
-         echo '<i>Description:</i> '.stripslashes($notes).'<br />';
-         echo '<i>File name:</i> '.stripslashes($name).'<br />';
-         echo '<i>Collection:</i> '.stripslashes($collection).'<br />';
-         echo '<i>URL:</i> '.stripslashes($url).'<br />';
+         echo '<i>primary_category:</i> '.stripslashes($primary_category).'<br />';
+         echo '<i>category2:</i> '.stripslashes($category2).'<br />';
+         echo '<i>category3:</i> '.stripslashes($category3).'<br />';
+         echo '<i>category4:</i> '.stripslashes($category4).'<br />';
+         echo '<i>creator:</i> '.stripslashes($creator).'<br />';
+         echo '<i>year:</i> '.stripslashes($year).'<br />';
+         echo '<i>object_medium:</i> '.stripslashes($object_medium).'<br />';
+         echo '<i>object_dimensions:</i> '.stripslashes($object_dimensions).'<br />';
+         echo '<i>time_period:</i> '.stripslashes($time_period).'<br />';
+         echo '<i>nation:</i> '.stripslashes($nation).'<br />';
+         echo '<i>city:</i> '.stripslashes($city).'<br />';
+         echo '<i>taxon_common_name:</i> '.stripslashes($taxon_common_name).'<br />';
+         echo '<i>taxon_order:</i> '.stripslashes($taxon_order).'<br />';
+         echo '<i>taxon_family:</i> '.stripslashes($taxon_family).'<br />';
+         echo '<i>taxon_species:</i> '.stripslashes($taxon_species).'<br />';
+         echo '<i>url:</i> '.stripslashes($url).'<br />';
+         echo '<i>collection:</i> '.stripslashes($collection).'<br />';
+         echo '<i>citation:</i> '.stripslashes($citation).'<br />';
+         echo '<i>description:</i> '.stripslashes($description).'<br />';
+         echo '<i>comments:</i> '.stripslashes($comments).'<br />';
+         echo '<i>permission_information:</i> '.stripslashes($permission_information).'<br />';
+
          echo '  </td>';
          echo ' </tr>';
          echo '</table>';

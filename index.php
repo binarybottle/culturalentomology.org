@@ -7,7 +7,7 @@ include_once("shared/header.html");
 include_once("shared/banner.html"); 
 ?>
 
-<title>Search the Insects Incorporated database of cultural entomology</title>
+<title>Insects Incorporated: Database of Cultural Entomology</title>
 
 <?php 
 
@@ -114,7 +114,7 @@ echo '<div class="main">';
          //   echo '<A HREF="images/'.$image_file_full.'" target=“_blank”>';
          //   //echo '<A HREF="javascript:popUp(\'images/'.$image_file_full.'\')">';
          //}
-         echo '   <img src="' . $image_repository . $image_filename . '" border="0" width="400px">';
+         echo '   <a href="'.$image_repository . $image_filename.'" target="_blank"><img src="' . $image_repository . $image_filename . '" border="0" width="400px"></a>';
          //if (strlen(trim($image_url))>0) {
          //   echo '</a>';
          //}

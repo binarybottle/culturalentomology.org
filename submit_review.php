@@ -200,7 +200,7 @@ if ($_POST['submitForm3'] == "Respond")
       $filenames = array();
       while($row = mysql_fetch_object($result_submissions))
       {
-         $ID = $row->id;
+         $ID = $row->pk_image_id;
          $image_filename = $row->image_filename;
          $title = $row->title;
          $primary_category = $row->primary_category;

@@ -48,11 +48,18 @@ echo '<div class="main">';
             break;
         }
 
-// description, creator, collection, object_medium, nation, city, taxon_common_name, taxon_order, taxon_family, taxon_species
-        $sql = "SELECT *,
-                MATCH(description)
+/*
+        $sql = "SELECT *, MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
                 AGAINST ('$searchstring' $bool) AS score FROM images
-                WHERE MATCH(description)
+                WHERE MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
+                AGAINST ('$searchstring' $bool)
+                AND hide='0' AND registered='1'
+                ORDER BY pk_image_id ASC, score";
+                //ORDER BY entry_date DESC, entry_update ASC, score";
+*/
+        $sql = "SELECT *, MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
+                AGAINST ('$searchstring' $bool) AS score FROM images
+                WHERE MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
                 AGAINST ('$searchstring' $bool)
                 AND hide='0' AND registered='1'
                 ORDER BY pk_image_id ASC, score";
@@ -77,15 +84,29 @@ echo '<div class="main">';
    // Loop through search results
       while($row = mysql_fetch_object($result))
       {
-         $image_ID =                           $row->pk_image_id;
-         $year =                               $row->year;
-         $title =                 stripslashes($row->title);
-         $image_filename =        stripslashes($row->image_filename);
-         $collection =            stripslashes($row->collection);
-         $author =                stripslashes($row->author);
-         $object_medium =         stripslashes($row->object_medium);
-         $description =           stripslashes($row->description);
-         $url =                   stripslashes($row->url);
+         $image_ID = $row->pk_image_id;
+         $image_filename = stripslashes($row->image_filename);
+         $title = stripslashes($row->title);
+         $primary_category = $row->primary_category;
+         $category2 = $row->category2;
+         $category3 = $row->category3;
+         $category4 = $row->category4;
+         $creator = stripslashes($row->creator);
+         $year = stripslashes($row->year);
+         $object_medium = stripslashes($row->object_medium);
+         $object_dimensions = stripslashes($row->object_dimensions);
+         $time_period = stripslashes($row->time_period);
+         $nation = stripslashes($row->nation);
+         $city = stripslashes($row->city);
+         $taxon_common_name = stripslashes($row->taxon_common_name);
+         $taxon_order = stripslashes($row->taxon_order);
+         $taxon_family = stripslashes($row->taxon_family);
+         $taxon_species = stripslashes($row->taxon_species);
+         $url = stripslashes($row->url);
+         $collection = stripslashes($row->collection);
+         $citation = stripslashes($row->citation);
+         $description = stripslashes($row->description);
+         $permission_information = stripslashes($row->permission_information);
 
 
       // Image repository
@@ -123,7 +144,6 @@ echo '<div class="main">';
          echo '  <td width="560">';
 
       // Image text
-/*
          if (strlen(trim($title))>0) {
             echo '<div class="title">';
 
@@ -138,20 +158,37 @@ echo '<div class="main">';
             //if (strlen(trim($url))>0) {
             echo '</div>';
          }   
-*/
 
          echo '<div class="credits">';
-         if (strlen(trim($year))>0 && trim($year)>0) {
-            echo $year . ' ';
+         //if (strlen(trim($time_period))>0 && trim($time_period)>0) {
+         //   echo $time_period . ' ';
+         //}
+         if (strlen(trim($year))>0) {
+            echo $year . '<br>';
          }
          if (strlen(trim($object_medium))>0) {
             echo $object_medium . ' ';
          }   
+         if (strlen(trim($object_dimensions))>0) {
+            echo '('.$object_dimensions.') ';
+         }   
+
          if (strlen(trim($creator))>0) {
-            if ((strlen(trim($year))>0 && trim($year)>0) || (strlen(trim($object_medium))>0)) {
+            if ((strlen(trim($year))>0 && trim($year)>0) || (strlen(trim($object_medium))>0) || (strlen(trim($object_dimensions))>0)) {
                echo 'by '; 
             }
             echo $creator;
+         }   
+         if (strlen(trim($city))>0) {
+            echo '<br>'.$city;
+            if (strlen(trim($nation))>0) {
+               echo ', ';
+            }
+         } else {
+            echo '<br>';
+         }   
+         if (strlen(trim($nation))>0) {
+            echo $nation;
          }   
          echo '</div>';
 
@@ -166,9 +203,30 @@ echo '<div class="main">';
 
          if (strlen(trim($collection))>0) {
             echo '<div class="collection">';
-            echo '<i>'.$collection.'</i>';
+            echo '<i>Collection:</i> '.$collection.'</i>';
+            echo '</div><br>';
+         }
+
+         if (strlen(trim($citation))>0) {
+            echo '<div class="collection">';
+            echo '<i>Citation:</i> '.$citation.'</i>';
             echo '</div>';
          }
+
+/*
+         // Missing from above:
+         echo '<i>primary_category:</i> '.stripslashes($primary_category).'<br />';
+         echo '<i>category2:</i> '.stripslashes($category2).'<br />';
+         echo '<i>category3:</i> '.stripslashes($category3).'<br />';
+         echo '<i>category4:</i> '.stripslashes($category4).'<br />';
+         echo '<i>time_period:</i> '.stripslashes($time_period).'<br />';
+         echo '<i>taxon_common_name:</i> '.stripslashes($taxon_common_name).'<br />';
+         echo '<i>taxon_order:</i> '.stripslashes($taxon_order).'<br />';
+         echo '<i>taxon_family:</i> '.stripslashes($taxon_family).'<br />';
+         echo '<i>taxon_species:</i> '.stripslashes($taxon_species).'<br />';
+         echo '<i>permission_information:</i> '.stripslashes($permission_information).'<br />';
+*/
+
 
          echo '   </td>';
          echo '  </tr>';

@@ -8,7 +8,7 @@ body {
 
 .textblocks {
         position: relative;
-        font-family: Verdana, Times New Roman, Helvetica, 
+        #font-family: Verdana, Times New Roman, Helvetica, 
         #font-family: Georgia, Times New Roman, Helvetica, sans-serif;
         font-size: 90%;
         #width: 800px;
@@ -30,7 +30,7 @@ body {
         font-size: 90%;
 }
 .notes {
-        font-family: Georgia, Times New Roman, Helvetica, sans-serif;
+        #font-family: Georgia, Times New Roman, Helvetica, sans-serif;
         font-size: 100%;
 }
 .collection {
@@ -38,19 +38,19 @@ body {
 }
 
 a:link {
-	color: #CC0000;
+	color: #a92116;
 	text-decoration:none;
 }
 a:visited {
-	color: #CC3333;
+	color: #d18983; ##ad8480;
 	text-decoration:none;
 }
 a:hover {
-	color: #FF0000;
+	color: #ca473c;
 	text-decoration:none;
 }
 a:active {
-	color: #FF9933;
+	color: #ca473c;
 	text-decoration:none;
 }
 

@@ -128,8 +128,8 @@ if ($_POST['submitForm'] == "Submit") {
   <img src="shared/captcha/CaptchaSecurityImages.php?width=100&height=40&characters=4" />
   <br>
   <input id="security_code" name="security_code" type="text" />
-  <br>
-  Show us you're not a robot and type the numbers. If you have difficulty seeing them, refresh your browser for new numbers.
+  <!--br>
+  Type the numbers in the box and show us you're not a robot. Refresh your browser if you have difficulty seeing them.-->
   <br><br>
   <input type="submit" name="submitForm" value="Submit" />
   <input type="hidden" name="first_submission" value="1">

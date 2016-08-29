@@ -1,34 +1,62 @@
 
 body {
         font-family: Helvetica, Verdana, Times New Roman, Helvetica, sans-serif;
-        font-size: 120%;
+        font-size: 100%;
+}
+
+div.searchform {
+  position:  relative;
+  left:      0px; #150px;
+  top:       0px; #-20px;
+}
+
+div.main {
+  position: relative;
+  #width: 480px;
+  left:   40px;
+  top:    60px;
+  font-size: 100%;
+}
+
+div.footer {
+  position: relative;
+  left:   50px;
+  top:    50px;
+  font-size: 80%;
 }
 
 .textblocks {
-        position: relative;
-        font-size: 100%;
+  position: relative;
+  font-size: 100%;
 }
 
 .ID {
-        font-size: 100%;
+  font-size: 100%;
 }
 .title {
-        font-size: 100%;
+  font-size: 100%;
 }
 .subtitle {
-        font-size: 90%;
+  font-size: 90%;
 }
 .about {
-        font-size: 80%;
+  font-size: 80%;
 }
 .credits {
-        font-size: 100%;
+  font-size: 100%;
 }
 .notes {
-        font-size: 100%;
+  font-size: 100%;
 }
 .collection {
-        font-size: 100%;
+  font-size: 100%;
+}
+.tip {
+  color: #A0A0A0;
+}
+.idfont {
+  font-size: 50%;
+  color: #A0A0A0;
 }
 
 a:link {
@@ -66,77 +94,46 @@ div.subhuman_banner {
 }
 
 
-div.searchform {
-  position:  relative;
-  left:      0px; #150px;
-  top:       0px; #-20px;
+h1 { 
+  font-size: 120%;
 }
-#search_exs {
-  position:  relative;
-  left:         0px;
-  top:          5px;
-  font-size:    60%;
-}
-
-div.main {
-  position: relative;
-  #width: 480px;
-  left:   40px;
-  top:    60px;
+h2 { 
   font-size: 100%;
 }
-
-div.footer {
-  position: relative;
-  left:   50px;
-  top:    50px;
+h3 { 
+  font-size: 110%;
+}
+h4 { 
   font-size: 80%;
 }
 
-h1 { 
-        font-size: 120%;
-}
-h2 { 
-        font-size: 100%;
-}
-h3 { 
-        font-size: 110%;
-}
-h4 { 
-        font-size: 80%;
-}
-
 .searchcaptions { 
-        font-size: 80%;
+  font-size: 100%;
 }
 
 .foundresults { 
-        font-size: 80%;
-}
-
-.font60 { 
-        font-size: 60%;
+  font-size: 80%;
 }
 .font80 { 
-        font-size: 80%;
+  font-size: 80%;
 }
 
 .redfont {
-        position: relative;
-        top: 150px; 
-        left: 50px; 
-        font-color: red;
+  position: relative;
+  top: 150px; 
+  left: 50px; 
+  font-color: red;
 }
 
 input {
-        background-color: #FFFFFF;
-        color: #996633;
+  background-color: #FFFFFF;
+  color: #996633;
 }
 textarea {
-        background-color: #FFFFFF;
-        color: #996633;
+  background-color: #FFFFFF;
+  color: #996633;
 }
 select {
-        background-color: #FFFFFF;
-        color: #996633;
+  background-color: #FFFFFF;
+  color: #996633;
 }

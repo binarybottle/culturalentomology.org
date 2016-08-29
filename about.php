@@ -7,9 +7,8 @@
 
 <h1>How to use the database</h1>
 
-<p>On the home page, type words in the search box. For 
-<A HREF="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" target=“_”>
-Boolean searches</A>, you can use symbols to narrow your search (example: "+bees -queen" is entered to show all images described with the word "bees" but not with the word "queen").</p>
+<p>On the home page, type words in the search box and click the "Search" button. You can refine your search using <A HREF="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" target=“_”>
+Boolean</A> search symbols.  For example, <i><b>+silk -"silk-screen"</b></i> shows all objects described with the word "silk" but not with "silk-screen".</p>
 
 <h1>About the database</h1>
 

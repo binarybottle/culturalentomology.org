@@ -25,7 +25,7 @@
       $userID       = $_POST['userID'];
   }
 
-  if(strlen($submit_first)==0 && strlen($submit_last)==0) {
+  if (strlen($submit_first)==0 && strlen($submit_last)==0) {
       include_once("shared/header.html");
       include_once("shared/banner.html"); 
       echo '<div class="main"><br /><br /><span class="redfont"><p>
@@ -229,7 +229,7 @@
     // Prepare SQL command
     //--------------------
     $title = $_POST[title];
-    $primary_category = $_POST[primary_category];
+    $category1 = $_POST[category1];
     $category2 = $_POST[category2];
     $category3 = $_POST[category3];
     $category4 = $_POST[category4];
@@ -239,6 +239,7 @@
     $object_dimensions = $_POST[object_dimensions];
     $time_period = $_POST[time_period];
     $nation = $_POST[nation];
+    $state = $_POST[state];
     $city = $_POST[city];
     $taxon_common_name = $_POST[taxon_common_name];
     $taxon_order = $_POST[taxon_order];
@@ -252,7 +253,7 @@
     $permission_information = $_POST[permission_information];
 
     $title = trim(mysql_real_escape_string($title));
-    $primary_category = trim(mysql_real_escape_string($primary_category));
+    $category1 = trim(mysql_real_escape_string($category1));
     $category2 = trim(mysql_real_escape_string($category2));
     $category3 = trim(mysql_real_escape_string($category3));
     $category4 = trim(mysql_real_escape_string($category4));
@@ -262,6 +263,7 @@
     $object_dimensions = trim(mysql_real_escape_string($object_dimensions));
     $time_period = trim(mysql_real_escape_string($time_period));
     $nation = trim(mysql_real_escape_string($nation));
+    $state = trim(mysql_real_escape_string($state));
     $city = trim(mysql_real_escape_string($city));
     $taxon_common_name = trim(mysql_real_escape_string($taxon_common_name));
     $taxon_order = trim(mysql_real_escape_string($taxon_order));
@@ -277,8 +279,8 @@
     //----------------
     // Run SQL command
     //----------------
-    $sql = 'INSERT INTO objects (filename1, filename2, filename3, filename4, filename5, filename6, filename7, filename8, filename9, filename10, entry_date, entry_time, registered, fk_user_id, title, primary_category, category2, category3, category4, creator, year, object_medium, object_dimensions, time_period, nation, city, taxon_common_name, taxon_order, taxon_family, taxon_species, url, collection, citation, description, comments, permission_information)
-            VALUES ("'.$filenames[0].'","'.$filenames[1].'","'.$filenames[2].'","'.$filenames[3].'","'.$filenames[4].'","'.$filenames[5].'","'.$filenames[6].'","'.$filenames[7].'","'.$filenames[8].'","'.$filenames[9].'","'.$entry_date.'","'.$entry_time.'","0","'.$userID.'","'.$title.'","'.$primary_category.'","'.$category2.'","'.$category3.'","'.$category4.'","'.$creator.'","'.$year.'","'.$object_medium.'","'.$object_dimensions.'","'.$time_period.'","'.$nation.'","'.$city.'","'.$taxon_common_name.'","'.$taxon_order.'","'.$taxon_family.'","'.$taxon_species.'","'.$url.'","'.$collection.'","'.$citation.'","'.$description.'","'.$comments.'","'.$permission_information.'")';
+    $sql = 'INSERT INTO objects (filename1, filename2, filename3, filename4, filename5, filename6, filename7, filename8, filename9, filename10, entry_date, entry_time, registered, fk_user_id, title, category1, category2, category3, category4, creator, year, object_medium, object_dimensions, time_period, nation, state, city, taxon_common_name, taxon_order, taxon_family, taxon_species, url, collection, citation, description, comments, permission_information)
+            VALUES ("'.$filenames[0].'","'.$filenames[1].'","'.$filenames[2].'","'.$filenames[3].'","'.$filenames[4].'","'.$filenames[5].'","'.$filenames[6].'","'.$filenames[7].'","'.$filenames[8].'","'.$filenames[9].'","'.$entry_date.'","'.$entry_time.'","0","'.$userID.'","'.$title.'","'.$category1.'","'.$category2.'","'.$category3.'","'.$category4.'","'.$creator.'","'.$year.'","'.$object_medium.'","'.$object_dimensions.'","'.$time_period.'","'.$nation.'","'.$state.'","'.$city.'","'.$taxon_common_name.'","'.$taxon_order.'","'.$taxon_family.'","'.$taxon_species.'","'.$url.'","'.$collection.'","'.$citation.'","'.$description.'","'.$comments.'","'.$permission_information.'")';
 
     echo $sql_image.'<br>';
     mysql_query($sql) or die (mysql_error());
@@ -354,66 +356,67 @@
   // Primary category
   echo 'Category:';
   echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  echo '<select name="primary_category'.$irow.'">';
+  echo '<select name="category1">';
   echo '<option disabled selected value> -- select category -- </option>';
   for ($inum_categories=0; $inum_categories<$num_categories; $inum_categories++) {
-              if ($categories[$inum_categories][0]==$icategory_selected) {
-               $selected = 'selected';
-      } else { $selected = '';
-      }
-      $category_id_category_menu = $categories[$inum_categories][0];
+      $selected = '';
+      //$category_id_category_menu = $categories[$inum_categories][0];
       $category = $categories[$inum_categories][1];
-      echo '<option value="'.$category_id_category_menu.'" '.$selected.'>'.
-                             $category.'</option>';
+      //echo '<option value="'.$category_id_category_menu.'" '.$selected.'>'.
+      //                       $category.'</option>';
+      echo '<option value="'.$category.'" '.$selected.'>'.$category.'</option>';
   }
   echo '</select>';
-  
+
   // Additional categories
   echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  $ncategories = 3;
-  for ($icategory=0; $icategory<$ncategories; $icategory++) {
-      echo '<select name="category".$icategory."'.$irow.'">';
+  for ($icategory=2; $icategory<=4; $icategory++) {
+      echo '<select name="category'.$icategory.'">';
       echo '<option disabled selected value> ----- another? ----- </option>';
       for ($inum_categories=0; $inum_categories<$num_categories; $inum_categories++) {
-          if ($categories[$inum_categories][0]==$icategory_selected) {
-                   $selected = 'selected';
-          } else { $selected = '';
-          }
-          $category_id_category_menu = $categories[$inum_categories][0];
+          $selected = '';
+          //$category_id_category_menu = $categories[$inum_categories][0];
           $category = $categories[$inum_categories][1];
-          echo '<option value="'.$category_id_category_menu.'" '.$selected.'>'.
-                                 $category.'</option>';
+          //echo '<option value="'.$category_id_category_menu.'" '.$selected.'>'.
+          //                       $category.'</option>';
+          echo '<option value="'.$category.'" '.$selected.'>'.$category.'</option>';
       }
       echo '</select>';
   }
   echo '<hr size="1" />';
 
+  // Title
+  echo 'Title:';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="66" name="title">';
+  echo '<br><br>';
+
   // Creator, year, medium, dimensions
   echo 'Author / artist / musician (creator):';
   echo '&nbsp;&nbsp;';
-  echo '<input type="text" size="66" name="creator'.$irow.'">';
+  echo '<input type="text" size="66" name="creator">';
   echo '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   
   echo 'Year (YYYY):';
   echo '&nbsp;&nbsp;';
-  echo '<input type="text" size="4" name="year'.$irow.'">';
+  echo '<input type="text" size="4" name="year">';
   echo '&nbsp;&nbsp;';
   
   echo 'Medium:';
   echo '&nbsp;&nbsp;';
-  echo '<input type="text" size="12" name="object_medium'.$irow.'">';
+  echo '<input type="text" size="12" name="object_medium">';
   echo '&nbsp;&nbsp;';
   
   echo 'Dimensions:';
   echo '&nbsp;&nbsp;';
-  echo '<input type="text" size="12" name="object_dimensions'.$irow.'">';
+  echo '<input type="text" size="12" name="object_dimensions">';
   echo '<br><br>';
   
   
   // Time periods
   echo 'Subject time period:';
   echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  echo '<select name="time_period'.$irow.'">';
+  echo '<select name="time_period">';
   echo '<option disabled selected value> ------- select time period ------- </option>';
   for ($inum_periods=0; $inum_periods<$num_periods; $inum_periods++) {
       if ($time_periods[$inum_periods][0]==$iperiod_selected) {
@@ -421,73 +424,73 @@
       } else {
           $selected = '';
       }
-      $period_id_period_menu = $time_periods[$inum_periods][0];
+      //$period_id_period_menu = $time_periods[$inum_periods][0];
       $time_period = $time_periods[$inum_periods][1];
-      echo '<option value="'.$period_id_period_menu.'" '.$selected.'>'.$time_period.'</option>';
+      //echo '<option value="'.$period_id_period_menu.'" '.$selected.'>'.$time_period.'</option>';
+      echo '<option value="'.$time_period.'" '.$selected.'>'.$time_period.'</option>';
   }
   echo '</select>';
   echo '<br><br>';
 
-  // Nation, city, name, taxon, website, collection, citation, description, comments, permission
-  echo 'Nation: <input type="text" size="25" name="nation'.$irow.'">';
-  echo '&nbsp;&nbsp;';
-  
-  echo 'City: <input type="text" size="27" name="city'.$irow.'"><br><br>';
-  
+  // Nation, state, city, name, taxon, website, collection, citation, description, comments, permission
+  echo 'Nation: <input type="text" size="15" name="nation">&nbsp;&nbsp;';
+  echo 'State/Province: <input type="text" size="15" name="state">&nbsp;&nbsp;';
+  echo 'City: <input type="text" size="15" name="city"><br><br>';
   echo 'What insect is featured? &nbsp; Common name:';
   echo '&nbsp;&nbsp;';
-  echo '<input type="text" size="30" name="taxon_common_name'.$irow.'">';
+  echo '<input type="text" size="30" name="taxon_common_name">';
   echo '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   
   echo 'Taxon order:';
   echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  echo '<select name="taxon_order'.$irow.'">';
+  echo '<select name="taxon_order">';
   echo '<option disabled selected value> ------------------- select taxon order ------------------- </option>';
   for ($inum_orders=0; $inum_orders<$num_orders; $inum_orders++) {
       if ($taxon_orders[$inum_orders][0]==$iorder_selected) {
                $selected = 'selected';
       } else { $selected = '';
       }
-      $order_id_order_menu = $taxon_orders[$inum_orders][0];
+      //$order_id_order_menu = $taxon_orders[$inum_orders][0];
       $taxon_order         = $taxon_orders[$inum_orders][1];
-      echo '<option value="'.$order_id_order_menu.'" '.$selected.'>'.
+      //echo '<option value="'.$order_id_order_menu.'" '.$selected.'>'.
+      echo '<option value="'.$taxon_order.'" '.$selected.'>'.
                              $taxon_order.'</option>';
   }
   echo '</select>';
   echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   
-  echo 'Taxon family:';
+  echo 'Taxon family (e.g., Apidae):';
   echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  echo '<input type="text" size="46" name="taxon_family'.$irow.'">';
+  echo '<input type="text" size="46" name="taxon_family">';
   echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   
-  echo 'Taxon species:';
+  echo 'Taxon species (e.g., <i>Apis mellifera</i>):';
   echo '&nbsp;&nbsp;';
-  echo '<input type="text" size="46" name="taxon_species'.$irow.'">';
+  echo '<input type="text" size="46" name="taxon_species">';
   echo '<br><br>';
   
   echo 'Website:<br>';
-  echo '<input type="text" size="66" name="url'.$irow.'">';
+  echo '<input type="text" size="66" name="url">';
   echo '<br><br>';
   
   echo 'Collection (private/gallery/museum/Internet):<br>';
-  echo '<input type="text" size="66" name="collection'.$irow.'">';
+  echo '<input type="text" size="66" name="collection">';
   echo '<br><br>';
   
   echo 'Citation (for publications):<br>';
-  echo '<textarea cols="64" rows="1" name="citation'.$irow.'"></textarea>';
+  echo '<textarea cols="64" rows="1" name="citation"></textarea>';
   echo '<br><br>';
   
   echo 'Description (text/html):<br>';
-  echo '<textarea cols="64" rows="2" name="description'.$irow.'"></textarea>';
+  echo '<textarea cols="64" rows="2" name="description"></textarea>';
   echo '<br><br>';
   
   echo 'Comments (will not be visible on the website):<br>';
-  echo '<textarea cols="64" rows="2" name="comments'.$irow.'"></textarea>';
+  echo '<textarea cols="64" rows="2" name="comments"></textarea>';
   echo '<br><br>';
   
   echo 'Permission (license/sharing information):<br>';
-  echo '<textarea cols="64" rows="2" name="permission_information'.$irow.'"></textarea>';
+  echo '<textarea cols="64" rows="2" name="permission_information"></textarea>';
   echo '<br><br>';
   
   

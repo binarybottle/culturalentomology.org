@@ -5,6 +5,15 @@ include_once("../db/culturalentomology_db.php");
 include_once("shared/img_specs.php");
 include_once("shared/header.html");
 include_once("shared/banner.html"); 
+
+$allowedExts = array(
+  "bmp",
+  "gif",
+  "jpg",
+  "jpeg",
+  "pjpeg",
+  "png"
+); 
 ?>
 
 <title>Insects Incorporated: Database of Cultural Entomology</title>
@@ -50,19 +59,19 @@ echo '<div class="main">';
 
 /*
         $sql = "SELECT *, MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
-                AGAINST ('$searchstring' $bool) AS score FROM images
+                AGAINST ('$searchstring' $bool) AS score FROM objects
                 WHERE MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
                 AGAINST ('$searchstring' $bool)
                 AND hide='0' AND registered='1'
-                ORDER BY pk_image_id ASC, score";
+                ORDER BY pk_object_id ASC, score";
                 //ORDER BY entry_date DESC, entry_update ASC, score";
 */
         $sql = "SELECT *, MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
-                AGAINST ('$searchstring' $bool) AS score FROM images
+                AGAINST ('$searchstring' $bool) AS score FROM objects
                 WHERE MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
                 AGAINST ('$searchstring' $bool)
                 AND hide='0' AND registered='1'
-                ORDER BY pk_image_id ASC, score";
+                ORDER BY pk_object_id ASC, score";
                 //ORDER BY entry_date DESC, entry_update ASC, score";
 
         $result = mysql_query($sql) or die (mysql_error());
@@ -84,8 +93,8 @@ echo '<div class="main">';
    // Loop through search results
       while($row = mysql_fetch_object($result))
       {
-         $image_ID = $row->pk_image_id;
-         $image_filename = stripslashes($row->image_filename);
+         $object_ID = $row->pk_object_id;
+         $filename1 = stripslashes($row->filename1);
          $title = stripslashes($row->title);
          $primary_category = $row->primary_category;
          $category2 = $row->category2;
@@ -108,40 +117,25 @@ echo '<div class="main">';
          $description = stripslashes($row->description);
          $permission_information = stripslashes($row->permission_information);
 
-
-      // Image repository
-/*
-         $filename_expl    = explode("/",$image_filename);
-         $filename_clip    = '';
-         for($icount = 0; $icount < count($filename_expl)-1; $icount++){
-            if (count($filename_expl)>1) {
-               $filename_clip = $filename_clip . $filename_expl[$icount] . '/';
-            }
-         }
-         $image_filename = $filename_clip . $image_prepend . $filename_expl[count($filename_expl)-1];
-*/
-         //$image_file_full = $filename_clip . $filename_expl[count($filename_expl)-1];
-         //echo $image_repository.$image_filename;
-
       // Line
          echo '<hr size="1" />';
 
       // Image
-         echo '<table width="800" border="0" cellspacing="0" cellpadding="10">';
-         echo ' <tr>';
-         echo '  <td width="240">';
-
-         //if (strlen(trim($url))>0) {
-         //   echo '<A HREF="images/'.$image_file_full.'" target=“_blank”>';
-         //   //echo '<A HREF="javascript:popUp(\'images/'.$image_file_full.'\')">';
-         //}
-         echo '   <a href="'.$image_repository . $image_filename.'" target="_blank"><img src="' . $image_repository . $image_filename . '" border="0" width="400px"></a>';
-         //if (strlen(trim($image_url))>0) {
-         //   echo '</a>';
-         //}
-         echo '   <span class="ID">'.$image_ID.'</span>';
-         echo '  </td>';
-         echo '  <td width="560">';
+      if (strlen($filename1) > 0) {
+         $extension = end(explode(".", $filename1));
+         if ( in_array($extension, $allowedExts ) ) {
+             echo '<table width="800" border="0" cellspacing="0" cellpadding="10">';
+             echo ' <tr>';
+             echo '  <td width="240">';
+             echo '   <img src="files/'.$filename1.'" height="240">';
+             echo '   <a href="files/'.$filename1.'" target="_blank"><img src="files/'.$filename1.'" border="0" width="400px"></a>';
+             echo '   <span class="font80">'.$filename1.' ('.$object_ID.')</span>';
+             echo '  </td>';
+             echo '  <td width="560">';
+         } else {
+             echo '<i>File name:</i> '.stripslashes($filename1).' ('.$object_ID.')<br />';
+         }
+      }
 
       // Image text
          if (strlen(trim($title))>0) {
@@ -226,7 +220,6 @@ echo '<div class="main">';
          echo '<i>taxon_species:</i> '.stripslashes($taxon_species).'<br />';
          echo '<i>permission_information:</i> '.stripslashes($permission_information).'<br />';
 */
-
 
          echo '   </td>';
          echo '  </tr>';

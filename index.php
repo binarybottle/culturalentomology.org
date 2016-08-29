@@ -17,24 +17,23 @@ $allowedExts = array(
 ?>
 
 <title>Insects Incorporated: Database of Cultural Entomology</title>
+<div class="main">
 
 <?php 
 
-$default_searchstring = "queen";
+  // Search form
+  $default_searchstring = '+silk -"silk-screen"';
+  include_once("shared/searchForm.php");
 
-// Search form
-   include_once("shared/searchForm.php");
-
-echo '<div class="main">';
-
-// Create the navigation switch
-   $cmd = (isset($_GET['cmd']) ? $_GET['cmd'] : '');
+  // Create the navigation switch
+  $cmd = (isset($_GET['cmd']) ? $_GET['cmd'] : '');
 
    switch($cmd)
    {
       default:
-      //searchForm();
-      //break;
+        $bool = ' IN BOOLEAN MODE ';
+        //searchForm();
+        //break;
     
       case "search":
         echo '<div class="searchform">';
@@ -45,15 +44,15 @@ echo '<div class="main">';
         if (strlen($words) > 0) {  
            $searchstring = mysql_real_escape_string($words);
         } else 
-           $searchstring = mysql_real_escape_string($default_searchstring);
+           $searchstring = $default_searchstring;
         }
         switch($_GET['mode'])
         {
-          case "normal":
-            $bool = '';
-            break;
           case "boolean":
             $bool = ' IN BOOLEAN MODE ';
+            break;
+          case "normal":
+            $bool = '';
             break;
         }
 
@@ -76,13 +75,13 @@ echo '<div class="main">';
 
         $result = mysql_query($sql) or die (mysql_error());
 
-        echo '<br />';
+        echo '<br>';
 
         if (mysql_num_rows($result)==1) {
-           echo '<div class="foundresults"><i>Found ' . mysql_num_rows($result) . ' result for "'.$searchstring.'":  </i></div>';
+           echo '<div class="foundresults">1 result for <b>'.$searchstring.'</b>:  </i></div>';
         }
         else {
-           echo '<div class="foundresults"><i>Found ' . mysql_num_rows($result) . ' results for "'.$searchstring.'": </i></div>';
+           echo '<div class="foundresults"><i>' . mysql_num_rows($result) . ' results for <b>'.$searchstring.'</b>: </i></div>';
         }
 
 //      break;
@@ -124,16 +123,16 @@ echo '<div class="main">';
       if (strlen($filename1) > 0) {
          $extension = end(explode(".", $filename1));
          if ( in_array($extension, $allowedExts ) ) {
-             echo '<table width="800" border="0" cellspacing="0" cellpadding="10">';
+             echo '<table width="100%" border="0" cellspacing="0" cellpadding="10">';
              echo ' <tr>';
-             echo '  <td width="240">';
+             echo '  <td width="40%">';
              echo '   <img src="files/'.$filename1.'" height="240">';
-             echo '   <a href="files/'.$filename1.'" target="_blank"><img src="files/'.$filename1.'" border="0" width="400px"></a>';
+             echo '   <a href="files/'.$filename1.'" target="_blank"><img src="files/'.$filename1.'" border="0"></a>';
              echo '   <span class="font80">'.$filename1.' ('.$object_ID.')</span>';
              echo '  </td>';
-             echo '  <td width="560">';
+             echo '  <td width="60%">';
          } else {
-             echo '<i>File name:</i> '.stripslashes($filename1).' ('.$object_ID.')<br />';
+             echo '<i>File:</i> '.stripslashes($filename1).' ('.$object_ID.')<br />';
          }
       }
 

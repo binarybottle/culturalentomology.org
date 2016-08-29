@@ -1,21 +1,16 @@
 
 body {
-#        background-color: #FFFFF0;
         font-family: Helvetica, Verdana, Times New Roman, Helvetica, sans-serif;
-        font-size: 100%;
-#        color: #996633;
+        font-size: 120%;
 }
 
 .textblocks {
         position: relative;
-        #font-family: Verdana, Times New Roman, Helvetica, 
-        #font-family: Georgia, Times New Roman, Helvetica, sans-serif;
-        font-size: 90%;
-        #width: 800px;
+        font-size: 100%;
 }
 
 .ID {
-        font-size: 80%;
+        font-size: 100%;
 }
 .title {
         font-size: 100%;
@@ -27,14 +22,13 @@ body {
         font-size: 80%;
 }
 .credits {
-        font-size: 90%;
+        font-size: 100%;
 }
 .notes {
-        #font-family: Georgia, Times New Roman, Helvetica, sans-serif;
         font-size: 100%;
 }
 .collection {
-        font-size: 90%;
+        font-size: 100%;
 }
 
 a:link {
@@ -74,27 +68,22 @@ div.subhuman_banner {
 
 div.searchform {
   position:  relative;
-  left:      150px;
-  top:       -20px;
+  left:      0px; #150px;
+  top:       0px; #-20px;
 }
 #search_exs {
   position:  relative;
-  left:         120px;
+  left:         0px;
   top:          5px;
-  font-size:    70%;
+  font-size:    60%;
 }
 
 div.main {
-  position: absolute;
-  left:   50px;
-  right:  50px;
-  top:    140px;
-  font-size:     90%;
-}
-div.main2 {
-  position: absolute;
-  left:   500px;
-  top:    500px;
+  position: relative;
+  #width: 480px;
+  left:   40px;
+  top:    60px;
+  font-size: 100%;
 }
 
 div.footer {

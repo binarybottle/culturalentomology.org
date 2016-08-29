@@ -21,13 +21,7 @@ if ($_POST['submitForm'] == "Submit") {
     $valid_form = true;
 
     // Debugging:
-    if ($debug==1) {
-/*
-        $submit_first = "Arno";
-        $submit_last = "Klein";
-        $submit_email = "arno@binarybottle.com";
-*/
-    } else {
+    if ($debug==0) {
         if ($_POST['submit_first'] == "") {
             $valid_form = false;
             echo '<span class="redfont">&nbsp;
@@ -107,12 +101,8 @@ if ($_POST['submitForm'] == "Submit") {
 
 <form method="post" action="submit.php" enctype="multipart/form-data">
 
-  <div class="textblocks">
-  <p>
-  <!--font color="red">Upgrade in progress -- don't submit images yet!</font><br /-->
-  You can help us expand the Insects Incorporated database with well-annotated examples of cultural entomology.</p><p>Before submitting examples, please type in your name and email address to register you as a contributor:
-  </p> 
-  </div>
+  <p>You can help us expand the database with well-annotated examples of cultural entomology. Please type in your name and email address to register as a contributor:</p> 
+
   <table border="0" cellspacing="0" cellpadding="5">
     <input name="date" type="hidden" id="date" value="<? print date("m.d.y");  ?>" />
     <tr>
@@ -128,27 +118,20 @@ if ($_POST['submitForm'] == "Submit") {
       </td>
     </tr>
     <tr>
-      <td align="right">Email address:</td>
+      <td align="right">Email:</td>
       <td align="left">
         <input name="submit_email" type="text" id="submit_email" />
       </td>
     </tr>
-    <tr>
-      <td valign="bottom">
-       <img src="shared/captcha/CaptchaSecurityImages.php?width=100&height=40&characters=4" />
-       <input id="security_code" name="security_code" type="text" />
-       <br /><span class="font80">
-       Please type in the box the numbers you see to the left. 
-       <br />
-       If you have trouble discerning the numbers from the noise, 
-       <br />
-       refresh your browser to generate new numbers.</span>
-      </td>
-      <td align="left" valign="bottom">
-       <input type="submit" name="submitForm" value="Submit" />
-      </td>
-    </tr>
   </table>
+  <br>
+  <img src="shared/captcha/CaptchaSecurityImages.php?width=100&height=40&characters=4" />
+  <br>
+  <input id="security_code" name="security_code" type="text" />
+  <br>
+  Show us you're not a robot and type the numbers. If you have difficulty seeing them, refresh your browser for new numbers.
+  <br><br>
+  <input type="submit" name="submitForm" value="Submit" />
   <input type="hidden" name="first_submission" value="1">
   <input type="hidden" name="debug" value="<?php echo $debug; ?>">
 </form>

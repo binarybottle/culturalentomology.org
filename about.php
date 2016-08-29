@@ -5,13 +5,11 @@
 
 <div class="main">
 
-<h1>How to use the Insects Incorporated database</h1>
+<h1>How to use the database</h1>
 
 <p>On the home page, type words in the search box. For 
 <A HREF="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" target=“_”>
 Boolean searches</A>, you can use symbols to narrow your search (example: "+bees -queen" is entered to show all images described with the word "bees" but not with the word "queen").</p>
-
-<br>
 
 <h1>About the database</h1>
 

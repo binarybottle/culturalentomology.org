@@ -11,11 +11,11 @@ function searchForm()
   // variable setup for the form.
   $searchwords = (isset($_GET['words']) ? htmlspecialchars(stripslashes($_REQUEST['words'])) : '');
   $boolean = (($_GET['mode'] == 'boolean') ? ' selected="selected"' : '' );
-//  $normal = (($_GET['mode'] == 'normal') ? ' selected="selected"' : '' );
-  
+  // $normal = (($_GET['mode'] == 'normal') ? ' selected="selected"' : '' );
+
   echo '<form method="get" action="'.$_SERVER['PHP_SELF'].'">';
   echo '<input type="hidden" name="cmd" value="search" />';
-  echo '<span class="searchcaptions"><input type="text" size="30" name="words" value="'.$searchwords.'" /> ';
+  echo '<span class="searchcaptions"><input type="text" size="60" name="words" value="'.$searchwords.'" /> ';
   echo '&nbsp;</span>';
   echo '<input type="submit" value="Search" />';
 /*

@@ -1,7 +1,7 @@
 
 body {
-        font-family: Helvetica, Verdana, Times New Roman, Helvetica, sans-serif;
-        font-size: 100%;
+  font-family: Calibri, Helvetica, Verdana, Times New Roman, sans-serif;
+  font-size: 100%;
 }
 
 div.searchform {
@@ -12,9 +12,9 @@ div.searchform {
 
 div.main {
   position: relative;
-  #width: 480px;
-  left:   40px;
-  top:    60px;
+  width:  640px;
+  left:   80px;
+  top:    100px;
   font-size: 100%;
 }
 
@@ -34,13 +34,13 @@ div.footer {
   font-size: 100%;
 }
 .title {
-  font-size: 100%;
+  font-size: 187%;
 }
 .subtitle {
-  font-size: 90%;
+  font-size: 120%;
 }
 .about {
-  font-size: 80%;
+  font-size: 120%;
 }
 .credits {
   font-size: 100%;
@@ -77,19 +77,21 @@ a:active {
 }
 
 div.bruce_banner {
+  font-family: Verdana, Times New Roman, sans-serif;
   position: absolute;
-  left:   200px;
-  top:    40px;
+  left:   240px;
+  top:    80px;
 }
 div.subhuman_banner {
+  font-family: Calibri, Helvetica, Verdana, Times New Roman, sans-serif;
   position: relative;
   left:   0px;
   top:    8px;
 }
 #logo {
   position:  relative;
-  left:          42px;
-  top:           20px;
+  left:          82px;
+  top:           60px;
   border:           0;
 }
 
@@ -103,16 +105,13 @@ h2 {
 h3 { 
   font-size: 110%;
 }
-h4 { 
-  font-size: 80%;
-}
 
 .searchcaptions { 
   font-size: 100%;
 }
 
 .foundresults { 
-  font-size: 80%;
+  font-size: 90%;
 }
 .font80 { 
   font-size: 80%;

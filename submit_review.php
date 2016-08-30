@@ -13,13 +13,19 @@ $submit_last  = $_GET['submit_last'];
 $submit_email = $_GET['submit_email'];
 $entry_time   = $_GET['entry_time'];
 
-$allowedExts = array(
+$image_extensions_for_viewing = array(
   "bmp",
   "gif",
   "jpg",
   "jpeg",
   "pjpeg",
-  "png"
+  "png",
+  "BMP",
+  "GIF",
+  "JPG",
+  "JPEG",
+  "PJPEG",
+  "PNG"
 ); 
 
 // Determine if the submit button has been clicked.
@@ -331,7 +337,7 @@ if ($_POST['submitForm2'] == "Respond")
           echo '<span class="tip">File permission: </span>'.$permission_information.'';
           echo '<br>';
         }
-        
+
         echo '</div>';
 
         // Show files if images
@@ -340,13 +346,10 @@ if ($_POST['submitForm2'] == "Respond")
             $filename = $filenames[$i];
             if (strlen($filename) > 0) {
                 $extension = end(explode(".", $filename));
-                if ( in_array($extension, $allowedExts ) ) {
-                    echo '<br><a href="files/'.$filename.'" target="_blank"><img src="files/'.$filename.'" height="240" border="0"></a><br>';
-                    echo '   <span class="font80">'.$filename.'</span>';
-                    echo '  </td>';
-                    echo '  <td width="60%"></tr>';
+                if ( in_array($extension, $image_extensions_for_viewing ) ) {
+                    echo '<a href="'.$raw_files_path.'/'.$filename.'" target="_blank"><img src="'.$raw_files_path.'/'.$filename.'" width="480" border="0"></a><span class="font80">'.$raw_files_path.'/'.$filename.'</span><br>';
                 } else {
-                    echo '<span class="tip">File: </span>'.stripslashes($filename).'<br>';
+                    echo '<span class="tip">File: </span><a href="'.$raw_files_path.'/'.$filename.'" target="_blank">'.$raw_files_path.'/'.$filename.'</a><br>';
                 }
             }
         }
@@ -354,8 +357,6 @@ if ($_POST['submitForm2'] == "Respond")
     }
   }  // This whole loop is repeated in submit_info.php
 
-
-  }
   echo '</div>';
   // Footer
   include_once("./shared/footer.php"); 

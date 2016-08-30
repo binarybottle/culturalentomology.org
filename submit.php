@@ -9,7 +9,7 @@
  include_once("shared/header.html");
  include_once("shared/banner.html");
 
- $title="Insects Incorporated: Cultural Entomology resource";
+ $title="Insects Incorporated: Cultural Entomology Database";
  $debug = 0;
 
 // Determine if the submit button has been clicked. 

@@ -65,8 +65,8 @@
   // Permitted file types
   //---------------------
   $max_uploads = 10; // Maximum number of files per object
-  $max_size = 10000000; // Maximum image size
-  $max_size_string   = '10MB';
+  $max_size = 20000000; // Maximum image size
+  $max_size_string   = '20MB';
   
   $allowedExts = array(
     "bmp",
@@ -75,6 +75,8 @@
     "jpeg",
     "pjpeg",
     "png",
+    "tif",
+    "tiff",
     "pdf",
     "flac",
     "mpa",
@@ -84,7 +86,25 @@
     "mpg",
     "mpeg",
     'mov',
-    "wav"
+    "wav",
+    "BMP",
+    "GIF",
+    "JPG",
+    "JPEG",
+    "PJPEG",
+    "PNG",
+    "TIF",
+    "TIFF",
+    "PDF",
+    "FLAC",
+    "MPA",
+    "MP2",
+    "MP3",
+    "MP4",
+    "MPG",
+    "MPEG",
+    'MOV',
+    "WAV"
   ); 
   
   $allowedMimeTypes = array( 
@@ -94,6 +114,8 @@
     'image/jpeg',
     'image/pjpeg',
     'image/png',
+    'image/tiff',
+    'image/x-tiff',
     'application/pdf',
     'audio/flac',
     'audio/mpg',
@@ -218,7 +240,7 @@
               $time_now     = time();
               $uniq_index   = $key2+1;
               $new_filename = $submit_last.'_'.$time_now.'_'.$uniq_index.'_'.$filename;
-              $new_filepath = "files/".$new_filename;
+              $new_filepath = $raw_files_path."/".$new_filename;
               $filenames[] = $new_filename;
               move_uploaded_file($file_tmp_name, $new_filepath);  
           }
@@ -297,7 +319,7 @@
   if ($first_submission==1) {
       echo '<h1>Submit a cultural entomology object!</h1>
       <div class="textblocks">
-      <p>This page allows you to submit files and any information you can related to a single cultural entomology object.  Any files you submit will be presented in the order you upload them (this can be useful for sequential pages of a book, for example).  Acceptable file formats include jpg, gif, bmp, png, pdf, mpa, mp3, mov, and wav, and must be no larger than '.$max_size_string. ' each.
+      <p>This page allows you to submit files and any information you can related to a single cultural entomology object.  Any files you submit will be presented in the order you upload them (this can be useful for sequential pages of a book, for example).  Acceptable file formats include jpg, gif, bmp, png, tiff, pdf, mpa, mp3, mov, and wav, and must be no larger than '.$max_size_string. ' each.
       </p>
       <p>We will review your submission for possible inclusion in the database and website. Content you submit to the database should not contain third party copyrighted material, or material that is subject to other third party proprietary rights, unless you have permission.</p>
       </div>';

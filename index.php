@@ -5,14 +5,6 @@ include_once("../db/culturalentomology_db.php");
 include_once("shared/header.html");
 include_once("shared/banner.html"); 
 
-$allowedExts = array(
-  "bmp",
-  "gif",
-  "jpg",
-  "jpeg",
-  "pjpeg",
-  "png"
-); 
 ?>
 
 <title>Insects Incorporated: Database of Cultural Entomology</title>
@@ -76,6 +68,7 @@ $allowedExts = array(
   }
 
   // This whole loop is repeated in submit_review.php
+  // except for "// Show files if images" portion
   if ($result) {
 
     // Loop through search results
@@ -241,7 +234,6 @@ $allowedExts = array(
         
         if (strlen(trim($permission_information))>0) {
           echo '<span class="tip">File permission: </span>'.$permission_information.'';
-          echo '<br>';
         }
         
         echo '</div>';
@@ -251,14 +243,14 @@ $allowedExts = array(
         for ( $i = 0; $i <=9; $i += 1) {
             $filename = $filenames[$i];
             if (strlen($filename) > 0) {
-                $extension = end(explode(".", $filename));
-                if ( in_array($extension, $allowedExts ) ) {
-                    echo '<br><a href="files/'.$filename.'" target="_blank"><img src="files/'.$filename.'" height="240" border="0"></a><br>';
-                    echo '   <span class="font80">'.$filename.'</span>';
-                    echo '  </td>';
-                    echo '  <td width="60%"></tr>';
+                $path_parts = pathinfo($filename);
+                $extension = $path_parts['extension'];
+                if ( in_array($extension, $all_image_extensions) ) {
+                    $filestem = $path_parts['filename'];
+                    $new_file = $filestem.'.'.$converted_image_extension;
+                    echo '<a href="'.$converted_images_path.'/'.$new_file.'" target="_blank"><img src="'.$converted_images_path.'/'.$new_file.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$new_file.'</span><br><br>';
                 } else {
-                    echo '<span class="tip">File: </span>'.stripslashes($filename).'<br>';
+                    echo '<br><span class="tip">File: </span><a href="'.$raw_files_path.'/'.$filename.'" target="_blank">'.$raw_files_path.'/'.$filename.'</a><br><br>';
                 }
             }
         }

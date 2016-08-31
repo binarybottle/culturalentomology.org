@@ -5,6 +5,25 @@ include_once("../db/culturalentomology_db.php");
 include_once("shared/header.html");
 include_once("shared/banner.html"); 
 
+$all_image_extensions = array(
+  "bmp",
+  "gif",
+  "jpg",
+  "jpeg",
+  "pjpeg",
+  "png",
+  "tif",
+  "tiff",
+  "BMP",
+  "GIF",
+  "JPG",
+  "JPEG",
+  "PJPEG",
+  "PNG",
+  "TIF",
+  "TIFF"
+);
+
 ?>
 
 <title>Insects Incorporated: Database of Cultural Entomology</title>
@@ -245,10 +264,22 @@ include_once("shared/banner.html");
             if (strlen($filename) > 0) {
                 $path_parts = pathinfo($filename);
                 $extension = $path_parts['extension'];
+
+                // If the file has an image extension
                 if ( in_array($extension, $all_image_extensions) ) {
                     $filestem = $path_parts['filename'];
                     $new_file = $filestem.'.'.$converted_image_extension;
-                    echo '<a href="'.$converted_images_path.'/'.$new_file.'" target="_blank"><img src="'.$converted_images_path.'/'.$new_file.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$new_file.'</span><br><br>';
+
+                    // Show converted image if it exists
+                    if (file_exists($new_file)) {
+                        echo '<a href="'.$converted_images_path.'/'.$new_file.'" target="_blank"><img src="'.$converted_images_path.'/'.$new_file.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$new_file.'</span><br><br>';
+
+                    // Show original image if it wasn't converted
+                    } else {
+                        echo '<a href="'.$raw_files_path.'/'.$filename.'" target="_blank"><img src="'.$raw_files_path.'/'.$filename.'" width="480" border="0"><br></a><span class="font80">'.$raw_files_path.'/'.$filename.'</span><br><br>';
+                    }
+
+                // If not an image, show a link to the file
                 } else {
                     echo '<br><span class="tip">File: </span><a href="'.$raw_files_path.'/'.$filename.'" target="_blank">'.$raw_files_path.'/'.$filename.'</a><br><br>';
                 }
@@ -256,7 +287,7 @@ include_once("shared/banner.html");
         }
         echo '<span class="idfont">#'.$object_ID.'</span><br>';
     }
-  }  // This whole loop is repeated in submit_review.php
+  }
 
 
   echo '</div>';

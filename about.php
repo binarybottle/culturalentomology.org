@@ -23,6 +23,8 @@ Boolean</A> search symbols.  For example, <i><b>+silk -"silk-screen"</b></i> sho
 <p>Insects Incorporated is accepting submissions with the goal of establishing the most comprehensive, manually-annotated cultural entomology database in the world. 
 We anticipate that it will be a valuable resource for research and for education at all levels, and that it will also be of general interest to a wide audience on the internet.</p>
 
+<p>Acknowledgments: <A HREF="http://www.binarybottle.com/" target=“_blank”>@rno Klein</a>, identical twin and champion for the wee, digital hexapod, made this website possible. UWL students contributing to the site: Cody Babcock, Abigail Reinke, Natalie Renier, Rebecca Schnabel, Keaton Unrein, Danielle VanBrabant, and Breanna Vey.</p>
+
 <!--img src="http://culturalentomology.org/decor/Ethnoentomology_collage_web.jpg" id="logo" width="480px">
 <br-->
 <img src="http://culturalentomology.org/decor/website_signoff_web.png" id="logo" width="500px">
@@ -30,3 +32,4 @@ We anticipate that it will be a valuable resource for research and for education
 </div>
 
 <? include_once("shared/footer.php"); ?>
+

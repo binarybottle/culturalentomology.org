@@ -188,6 +188,16 @@
   //------------------------------------------------------------------------------------
   if ($_POST['submitForm'] == "SUBMIT")
   {
+
+    //----------------------------------------------------------------------------------
+    // Find next pk_object_id
+    //----------------------------------------------------------------------------------
+    $sql_max_id = "SELECT max(pk_object_id) as num FROM objects";
+    $maxquery = mysql_query($sql_max_id) or die (mysql_error());
+    while($row = mysql_fetch_assoc($maxquery)) {
+        $next_id = $row['num'] + 1;
+    }
+
     //----------------------------------------------------------------------------------
     // Upload each file after checking size, extension, and format
     //----------------------------------------------------------------------------------
@@ -239,7 +249,8 @@
               $filename     = $value2;
               $time_now     = time();
               $uniq_index   = $key2+1;
-              $new_filename = $submit_last.'_'.$time_now.'_'.$uniq_index.'_'.$filename;
+              //$new_filename = $submit_last.'_'.$time_now.'_'.$uniq_index.'_'.$filename;
+              $new_filename = $next_id.'_'.$uniq_index.'_'.$time_now.'_'.$submit_last.'_'.$filename;
               $new_filepath = $raw_files_path."/".$new_filename;
               $filenames[] = $new_filename;
               move_uploaded_file($file_tmp_name, $new_filepath);  
@@ -301,8 +312,8 @@
     //----------------
     // Run SQL command
     //----------------
-    $sql = 'INSERT INTO objects (filename1, filename2, filename3, filename4, filename5, filename6, filename7, filename8, filename9, filename10, entry_date, entry_time, registered, fk_user_id, title, category1, category2, category3, category4, creator, year, object_medium, object_dimensions, time_period, nation, state, city, taxon_common_name, taxon_order, taxon_family, taxon_species, url, collection, citation, description, comments, permission_information)
-            VALUES ("'.$filenames[0].'","'.$filenames[1].'","'.$filenames[2].'","'.$filenames[3].'","'.$filenames[4].'","'.$filenames[5].'","'.$filenames[6].'","'.$filenames[7].'","'.$filenames[8].'","'.$filenames[9].'","'.$entry_date.'","'.$entry_time.'","0","'.$userID.'","'.$title.'","'.$category1.'","'.$category2.'","'.$category3.'","'.$category4.'","'.$creator.'","'.$year.'","'.$object_medium.'","'.$object_dimensions.'","'.$time_period.'","'.$nation.'","'.$state.'","'.$city.'","'.$taxon_common_name.'","'.$taxon_order.'","'.$taxon_family.'","'.$taxon_species.'","'.$url.'","'.$collection.'","'.$citation.'","'.$description.'","'.$comments.'","'.$permission_information.'")';
+    $sql = 'INSERT INTO objects (pk_object_id, filename1, filename2, filename3, filename4, filename5, filename6, filename7, filename8, filename9, filename10, entry_date, entry_time, registered, fk_user_id, title, category1, category2, category3, category4, creator, year, object_medium, object_dimensions, time_period, nation, state, city, taxon_common_name, taxon_order, taxon_family, taxon_species, url, collection, citation, description, comments, permission_information)
+            VALUES ("'.$next_id.'","'.$filenames[0].'","'.$filenames[1].'","'.$filenames[2].'","'.$filenames[3].'","'.$filenames[4].'","'.$filenames[5].'","'.$filenames[6].'","'.$filenames[7].'","'.$filenames[8].'","'.$filenames[9].'","'.$entry_date.'","'.$entry_time.'","0","'.$userID.'","'.$title.'","'.$category1.'","'.$category2.'","'.$category3.'","'.$category4.'","'.$creator.'","'.$year.'","'.$object_medium.'","'.$object_dimensions.'","'.$time_period.'","'.$nation.'","'.$state.'","'.$city.'","'.$taxon_common_name.'","'.$taxon_order.'","'.$taxon_family.'","'.$taxon_species.'","'.$url.'","'.$collection.'","'.$citation.'","'.$description.'","'.$comments.'","'.$permission_information.'")';
 
     echo $sql_image.'<br>';
     mysql_query($sql) or die (mysql_error());

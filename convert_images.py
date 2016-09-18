@@ -51,3 +51,17 @@ for raw_file in raw_files:
                     print("Child returned {0}".format(retcode))
             except OSError as e:
                 print("Execution failed: {0}".format(e))
+
+            # Change permissions:
+            command2 = "chmod 755 " + output_file
+            print(command2)
+            try:
+                retcode = call(command2, shell=True)
+                if retcode < 0:
+                    print("Child was terminated by signal", -retcode)
+                elif retcode == 0:
+                    pass
+                else:
+                    print("Child returned {0}".format(retcode))
+            except OSError as e:
+                print("Execution failed: {0}".format(e))

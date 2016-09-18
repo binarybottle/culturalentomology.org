@@ -67,9 +67,13 @@ $all_image_extensions = array(
       }
   }
 
-  $sql = "SELECT *, MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
+  /* SQL query:
+     ALTER TABLE `objects` ADD FULLTEXT(`title`,`category1`,`category2`,`category3`,`category4`,`creator`,`year`,`object_medium`,`time_period`,`nation`,`state`,`city`,`taxon_common_name`,`taxon_order`,`taxon_family`,`taxon_species`,`collection`,`citation`,`description`,`permission_information`)
+     #1070 - Too many key parts specified; max 16 parts allowed
+  */
+  $sql = "SELECT *, MATCH(title,category1,category2,category3,creator,object_medium,time_period,nation,state,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,description)
           AGAINST ('$searchstring' $bool) AS score FROM objects
-          WHERE MATCH(title,creator,object_medium,nation,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,citation,description,permission_information)
+          WHERE MATCH(title,category1,category2,category3,creator,object_medium,time_period,nation,state,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,description)
           AGAINST ('$searchstring' $bool)
           AND hide='0' AND registered='1'
           ORDER BY pk_object_id ASC, score";
@@ -151,7 +155,7 @@ $all_image_extensions = array(
         if (strlen(trim($creator))>0) {
             echo $creator;
         }
-        if (strlen(trim($creator))>0) {
+        if ((strlen(trim($creator))>0) && ((strlen(trim($year))>0) || (strlen(trim($object_medium))>0) || (strlen(trim($object_dimensions))>0))) {
             echo ', ';
         }
         if (strlen(trim($year))>0) {
@@ -251,9 +255,9 @@ $all_image_extensions = array(
           echo '<br>';
         }
         
-        if (strlen(trim($permission_information))>0) {
-          echo '<span class="tip">File permission: </span>'.$permission_information.'';
-        }
+        //if (strlen(trim($permission_information))>0) {
+        //  echo '<span class="tip">File permission: </span>'.$permission_information.'';
+        //}
         
         echo '</div>';
 
@@ -271,7 +275,7 @@ $all_image_extensions = array(
                     $new_file = $filestem.'.'.$converted_image_extension;
 
                     // Show converted image if it exists
-                    if (file_exists($new_file)) {
+                    if (file_exists($converted_images_path.'/'.$new_file)) {
                         echo '<a href="'.$converted_images_path.'/'.$new_file.'" target="_blank"><img src="'.$converted_images_path.'/'.$new_file.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$new_file.'</span><br><br>';
 
                     // Show original image if it wasn't converted

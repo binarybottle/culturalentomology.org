@@ -280,12 +280,18 @@ $all_image_extensions = array(
 
                     // Show original image if it wasn't converted
                     } else {
-                        echo '<a href="'.$raw_files_path.'/'.$filename.'" target="_blank"><img src="'.$raw_files_path.'/'.$filename.'" width="480" border="0"><br></a><span class="font80">'.$raw_files_path.'/'.$filename.'</span><br><br>';
+                        echo '<a href="'.$submitted_files_path.'/'.$filename.'" target="_blank"><img src="'.$submitted_files_path.'/'.$filename.'" width="480" border="0"><br></a><span class="font80">'.$submitted_files_path.'/'.$filename.'</span><br><br>';
                     }
 
                 // If not an image, show a link to the file
                 } else {
-                    echo '<br><span class="tip">File: </span><a href="'.$raw_files_path.'/'.$filename.'" target="_blank">'.$raw_files_path.'/'.$filename.'</a><br><br>';
+                    // Show moved non-image file if it exists
+                    if (file_exists($moved_nonimages_path.'/'.$filename)) {
+                        echo '<br><span class="tip">File: </span><a href="'.$moved_nonimages_path.'/'.$filename.'" target="_blank">'.$moved_nonimages_path.'/'.$filename.'</a><br><br>';
+                    // Show original non-image if it wasn't moved
+                    } else {
+                        echo '<br><span class="tip">File: </span><a href="'.$submitted_files_path.'/'.$filename.'" target="_blank">'.$submitted_files_path.'/'.$filename.'</a><br><br>';
+                    }
                 }
             }
         }

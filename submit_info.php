@@ -167,7 +167,7 @@
   }
   
   // Find all taxon orders for a dropdown menu
-  $sql_order_menu    = "SELECT pk_order_id, taxon_order FROM taxon_orders ORDER BY pk_order_id";
+  $sql_order_menu    = "SELECT pk_order_id, sort_order_id, taxon_order FROM taxon_orders ORDER BY sort_order_id";
   $result_order_menu = mysql_query($sql_order_menu) or die (mysql_error());
   $num_orders        = mysql_num_rows($result_order_menu);
   $inum_orders       = 0;
@@ -251,7 +251,7 @@
               $uniq_index   = $key2+1;
               //$new_filename = $submit_last.'_'.$time_now.'_'.$uniq_index.'_'.$filename;
               $new_filename = $next_id.'_'.$uniq_index.'_'.$time_now.'_'.$submit_last.'_'.$filename;
-              $new_filepath = $raw_files_path."/".$new_filename;
+              $new_filepath = $submitted_files_path."/".$new_filename;
               $filenames[] = $new_filename;
               move_uploaded_file($file_tmp_name, $new_filepath);  
           }

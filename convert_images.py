@@ -6,10 +6,12 @@ Use ImageMagick's mogrify command to resize and reformat image files.
 """
 import os
 import sys
+import shutil
 from subprocess import call
 
-raw_files_path = '/home/pupating/culturalentomology.org/raw_files'
-converted_images_path = '/home/pupating/culturalentomology.org/converted_images'
+submitted_files_path = '/home/pupating/culturalentomology.org/submissions'
+moved_nonimages_path = '/home/pupating/culturalentomology.org/submitted_nonimages';
+converted_images_path = '/home/pupating/culturalentomology.org/submitted_images'
 image_extensions = ['bmp','gif','jpg','jpeg','pjpeg','png','tif','tiff',
                     'BMP','GIF','JPG','JPEG','PJPEG','PNG','TIF','TIFF']
 new_extension = 'jpg'
@@ -17,14 +19,18 @@ resize_dims = '1200x' #'800x'
 quality = '100'
 cmd = 'convert'
 
-raw_files = os.listdir(raw_files_path)
+submitted_files = os.listdir(submitted_files_path)
 converted_images = os.listdir(converted_images_path)
 
 # Loop through raw files:
-for raw_file in raw_files:
+for submitted_file in submitted_files:
+
+    input_file_no_quotes = '{0}'.format(os.path.join(submitted_files_path,
+                                           submitted_file))
+    input_file = '"{0}"'.format(input_file_no_quotes)
 
     # If raw file has an acceptable image file extension:
-    exploded_filename = raw_file.split('.')
+    exploded_filename = submitted_file.split('.')
     filestem = '.'.join(exploded_filename[:-1])
     extension = exploded_filename[-1]
     if extension in image_extensions:
@@ -33,8 +39,6 @@ for raw_file in raw_files:
         converted_file = '.'.join([filestem, new_extension])
         if converted_file not in converted_images:
 
-            input_file = '"{0}"'.format(os.path.join(raw_files_path,
-                                                     raw_file))
             output_file = '"{0}"'.format(os.path.join(converted_images_path,
                                                       converted_file))
             arg_resize = " -adaptive-resize " + resize_dims
@@ -98,3 +102,25 @@ for raw_file in raw_files:
                     print("Child returned {0}".format(retcode))
             except OSError as e:
                 print("Execution failed: {0}".format(e))
+
+    # Non-image files:
+    else:
+        moved_file = os.path.join(moved_nonimages_path, submitted_file)
+        print(input_file_no_quotes)
+        print(moved_file)
+        shutil.move(input_file_no_quotes, moved_file)
+
+        # Change permissions:
+        command6 = "chmod 755 " + moved_file
+        print(command6)
+        try:
+            retcode = call(command6, shell=True)
+            if retcode < 0:
+                print("Child was terminated by signal", -retcode)
+            elif retcode == 0:
+                pass
+            else:
+                print("Child returned {0}".format(retcode))
+        except OSError as e:
+            print("Execution failed: {0}".format(e))
+

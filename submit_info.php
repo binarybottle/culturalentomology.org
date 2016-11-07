@@ -251,7 +251,7 @@
               $uniq_index   = $key2+1;
               //$new_filename = $submit_last.'_'.$time_now.'_'.$uniq_index.'_'.$filename;
               $new_filename = $next_id.'_'.$uniq_index.'_'.$time_now.'_'.$submit_last.'_'.$filename;
-              $new_filepath = $submissions_path."/".$new_filename;
+              $new_filepath = $converted_images_path."/".$new_filename;
               $filenames[] = $new_filename;
               move_uploaded_file($file_tmp_name, $new_filepath);  
           }

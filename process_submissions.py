@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Use ImageMagick's mogrify command to resize and reformat image files.
+Use ImageMagick's convert command to resize and reformat image files.
 
 2016 . Arno Klein (arno@binarybottle.com) . Apache v2.0 License
 """

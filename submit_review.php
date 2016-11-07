@@ -347,9 +347,9 @@ if ($_POST['submitForm2'] == "Respond")
             if (strlen($filename) > 0) {
                 $extension = end(explode(".", $filename));
                 if ( in_array($extension, $image_extensions_for_viewing ) ) {
-                    echo '<a href="'.$submissions_path.'/'.$filename.'" target="_blank"><img src="'.$submissions_path.'/'.$filename.'" width="480" border="0"></a><span class="font80">'.$submissions_path.'/'.$filename.'</span><br>';
+                    echo '<a href="'.$converted_images_path.'/'.$filename.'" target="_blank"><img src="'.$converted_images_path.'/'.$filename.'" width="480" border="0"></a><span class="font80">'.$converted_images_path.'/'.$filename.'</span><br>';
                 } else {
-                    echo '<span class="tip">File: </span><a href="'.$submissions_path.'/'.$filename.'" target="_blank">'.$submissions_path.'/'.$filename.'</a><br>';
+                    echo '<span class="tip">File: </span><a href="'.$converted_images_path.'/'.$filename.'" target="_blank">'.$converted_images_path.'/'.$filename.'</a><br>';
                 }
             }
         }

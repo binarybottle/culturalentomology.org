@@ -199,9 +199,21 @@ if ($_POST['submitForm2'] == "Respond")
         $state = $row->state;
         $city = $row->city;
         $taxon_common_name = $row->taxon_common_name;
+        $taxon_common_name2 = $row->taxon_common_name2;
+        $taxon_common_name3 = $row->taxon_common_name3;
+        $taxon_common_name4 = $row->taxon_common_name4;
         $taxon_order = $row->taxon_order;
+        $taxon_order2 = $row->taxon_order2;
+        $taxon_order3 = $row->taxon_order3;
+        $taxon_order4 = $row->taxon_order4;
         $taxon_family = $row->taxon_family;
+        $taxon_family2 = $row->taxon_family2;
+        $taxon_family3 = $row->taxon_family3;
+        $taxon_family4 = $row->taxon_family4;
         $taxon_species = $row->taxon_species;
+        $taxon_species2 = $row->taxon_species2;
+        $taxon_species3 = $row->taxon_species3;
+        $taxon_species4 = $row->taxon_species4;
         $url = $row->url;
         $collection = $row->collection;
         $citation = $row->citation;
@@ -333,6 +345,61 @@ if ($_POST['submitForm2'] == "Respond")
           echo '<br>';
         }
         
+
+        if (strlen(trim($taxon_common_name2))>0) {
+          echo '<span class="tip">Taxon common name 2: </span>'.$taxon_common_name2.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_order2))>0) {
+          echo '<span class="tip">Taxon order 2: </span>'.$taxon_order2.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_family2))>0) {
+          echo '<span class="tip">Taxon family 2: </span>'.$taxon_family2.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_species2))>0) {
+          echo '<span class="tip">Taxon species 2: </span>'.$taxon_species2.'';
+          echo '<br>';
+        }
+        
+
+        if (strlen(trim($taxon_common_name3))>0) {
+          echo '<span class="tip">Taxon common name 3: </span>'.$taxon_common_name3.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_order3))>0) {
+          echo '<span class="tip">Taxon order 3: </span>'.$taxon_order3.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_family3))>0) {
+          echo '<span class="tip">Taxon family 3: </span>'.$taxon_family3.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_species3))>0) {
+          echo '<span class="tip">Taxon species 3: </span>'.$taxon_species3.'';
+          echo '<br>';
+        }
+        
+
+        if (strlen(trim($taxon_common_name4))>0) {
+          echo '<span class="tip">Taxon common name 4: </span>'.$taxon_common_name4.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_order))>0) {
+          echo '<span class="tip">Taxon order 4: </span>'.$taxon_order.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_family4))>0) {
+          echo '<span class="tip">Taxon family 4: </span>'.$taxon_family4.'';
+          echo '<br>';
+        }
+        if (strlen(trim($taxon_species4))>0) {
+          echo '<span class="tip">Taxon species 4: </span>'.$taxon_species4.'';
+          echo '<br>';
+        }
+        
+
         if (strlen(trim($permission_information))>0) {
           echo '<span class="tip">File permission: </span>'.$permission_information.'';
           echo '<br>';

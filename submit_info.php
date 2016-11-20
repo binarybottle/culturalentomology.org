@@ -65,8 +65,8 @@
   // Permitted file types
   //---------------------
   $max_uploads = 10; // Maximum number of files per object
-  $max_size = 20000000; // Maximum image size
-  $max_size_string   = '20MB';
+  $max_size = 50000000; // Maximum image size
+  $max_size_string   = '50MB';
   
   $allowedExts = array(
     "bmp",
@@ -275,9 +275,21 @@
     $state = $_POST[state];
     $city = $_POST[city];
     $taxon_common_name = $_POST[taxon_common_name];
+    $taxon_common_name2 = $_POST[taxon_common_name2];
+    $taxon_common_name3 = $_POST[taxon_common_name3];
+    $taxon_common_name4 = $_POST[taxon_common_name4];
     $taxon_order = $_POST[taxon_order];
+    $taxon_order2 = $_POST[taxon_order2];
+    $taxon_order3 = $_POST[taxon_order3];
+    $taxon_order4 = $_POST[taxon_order4];
     $taxon_family = $_POST[taxon_family];
+    $taxon_family2 = $_POST[taxon_family2];
+    $taxon_family3 = $_POST[taxon_family3];
+    $taxon_family4 = $_POST[taxon_family4];
     $taxon_species = $_POST[taxon_species];
+    $taxon_species2 = $_POST[taxon_species2];
+    $taxon_species3 = $_POST[taxon_species3];
+    $taxon_species4 = $_POST[taxon_species4];
     $url = $_POST[url];
     $collection = $_POST[collection];
     $citation = $_POST[citation];
@@ -299,9 +311,21 @@
     $state = trim(mysql_real_escape_string($state));
     $city = trim(mysql_real_escape_string($city));
     $taxon_common_name = trim(mysql_real_escape_string($taxon_common_name));
+    $taxon_common_name2 = trim(mysql_real_escape_string($taxon_common_name2));
+    $taxon_common_name3 = trim(mysql_real_escape_string($taxon_common_name3));
+    $taxon_common_name4 = trim(mysql_real_escape_string($taxon_common_name4));
     $taxon_order = trim(mysql_real_escape_string($taxon_order));
+    $taxon_order2 = trim(mysql_real_escape_string($taxon_order2));
+    $taxon_order3 = trim(mysql_real_escape_string($taxon_order3));
+    $taxon_order4 = trim(mysql_real_escape_string($taxon_order4));
     $taxon_family = trim(mysql_real_escape_string($taxon_family));
+    $taxon_family2 = trim(mysql_real_escape_string($taxon_family2));
+    $taxon_family3 = trim(mysql_real_escape_string($taxon_family3));
+    $taxon_family4 = trim(mysql_real_escape_string($taxon_family4));
     $taxon_species = trim(mysql_real_escape_string($taxon_species));
+    $taxon_species2 = trim(mysql_real_escape_string($taxon_species2));
+    $taxon_species3 = trim(mysql_real_escape_string($taxon_species3));
+    $taxon_species4 = trim(mysql_real_escape_string($taxon_species4));
     $url = trim(mysql_real_escape_string($url));
     $collection = trim(mysql_real_escape_string($collection));
     $citation = trim(mysql_real_escape_string($citation));
@@ -312,8 +336,8 @@
     //----------------
     // Run SQL command
     //----------------
-    $sql = 'INSERT INTO objects (pk_object_id, filename1, filename2, filename3, filename4, filename5, filename6, filename7, filename8, filename9, filename10, entry_date, entry_time, registered, fk_user_id, title, category1, category2, category3, category4, creator, year, object_medium, object_dimensions, time_period, nation, state, city, taxon_common_name, taxon_order, taxon_family, taxon_species, url, collection, citation, description, comments, permission_information)
-            VALUES ("'.$next_id.'","'.$filenames[0].'","'.$filenames[1].'","'.$filenames[2].'","'.$filenames[3].'","'.$filenames[4].'","'.$filenames[5].'","'.$filenames[6].'","'.$filenames[7].'","'.$filenames[8].'","'.$filenames[9].'","'.$entry_date.'","'.$entry_time.'","0","'.$userID.'","'.$title.'","'.$category1.'","'.$category2.'","'.$category3.'","'.$category4.'","'.$creator.'","'.$year.'","'.$object_medium.'","'.$object_dimensions.'","'.$time_period.'","'.$nation.'","'.$state.'","'.$city.'","'.$taxon_common_name.'","'.$taxon_order.'","'.$taxon_family.'","'.$taxon_species.'","'.$url.'","'.$collection.'","'.$citation.'","'.$description.'","'.$comments.'","'.$permission_information.'")';
+    $sql = 'INSERT INTO objects (pk_object_id, filename1, filename2, filename3, filename4, filename5, filename6, filename7, filename8, filename9, filename10, entry_date, entry_time, registered, fk_user_id, title, category1, category2, category3, category4, creator, year, object_medium, object_dimensions, time_period, nation, state, city, taxon_common_name, taxon_order, taxon_family, taxon_species, taxon_common_name2, taxon_order2, taxon_family2, taxon_species2, taxon_common_name3, taxon_order3, taxon_family3, taxon_species3, taxon_common_name4, taxon_order4, taxon_family4, taxon_species4, url, collection, citation, description, comments, permission_information)
+            VALUES ("'.$next_id.'","'.$filenames[0].'","'.$filenames[1].'","'.$filenames[2].'","'.$filenames[3].'","'.$filenames[4].'","'.$filenames[5].'","'.$filenames[6].'","'.$filenames[7].'","'.$filenames[8].'","'.$filenames[9].'","'.$entry_date.'","'.$entry_time.'","0","'.$userID.'","'.$title.'","'.$category1.'","'.$category2.'","'.$category3.'","'.$category4.'","'.$creator.'","'.$year.'","'.$object_medium.'","'.$object_dimensions.'","'.$time_period.'","'.$nation.'","'.$state.'","'.$city.'","'.$taxon_common_name.'","'.$taxon_order.'","'.$taxon_family.'","'.$taxon_species.'","'.$taxon_common_name2.'","'.$taxon_order2.'","'.$taxon_family2.'","'.$taxon_species2.'","'.$taxon_common_name3.'","'.$taxon_order3.'","'.$taxon_family3.'","'.$taxon_species3.'","'.$taxon_common_name4.'","'.$taxon_order4.'","'.$taxon_family4.'","'.$taxon_species4.'","'.$url.'","'.$collection.'","'.$citation.'","'.$description.'","'.$comments.'","'.$permission_information.'")';
 
     echo $sql_image.'<br>';
     mysql_query($sql) or die (mysql_error());
@@ -387,7 +411,7 @@
   echo '<div class="textblocks">';
 
   // Primary category
-  echo 'Category:';
+  echo 'Category of object:';
   echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   echo '<select name="category1">';
   echo '<option disabled selected value> -- select category -- </option>';
@@ -419,36 +443,25 @@
   echo '<hr size="1" />';
 
   // Title
-  echo 'Title:';
+  echo 'Title <font color="gray">(brief description of object)</font>:';
   echo '&nbsp;&nbsp;';
   echo '<input type="text" size="66" name="title">';
   echo '<br><br>';
 
   // Creator, year, medium, dimensions
-  echo 'Author / artist / musician (creator):';
+  echo 'Author / artist / musician <font color="gray">(creator of object)</font>:';
   echo '&nbsp;&nbsp;';
   echo '<input type="text" size="66" name="creator">';
-  echo '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo '<br><br>';
   
-  echo 'Year (YYYY):';
+  echo 'Year (YYYY) object was created:';
   echo '&nbsp;&nbsp;';
   echo '<input type="text" size="4" name="year">';
   echo '&nbsp;&nbsp;';
-  
-  echo 'Medium:';
-  echo '&nbsp;&nbsp;';
-  echo '<input type="text" size="12" name="object_medium">';
-  echo '&nbsp;&nbsp;';
-  
-  echo 'Dimensions:';
-  echo '&nbsp;&nbsp;';
-  echo '<input type="text" size="12" name="object_dimensions">';
-  echo '<br><br>';
-  
-  
+
   // Time periods
-  echo 'Subject time period:';
-  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo 'OR time period:';
+  echo '&nbsp;&nbsp;';
   echo '<select name="time_period">';
   echo '<option disabled selected value> ------- select time period ------- </option>';
   for ($inum_periods=0; $inum_periods<$num_periods; $inum_periods++) {
@@ -464,11 +477,22 @@
   }
   echo '</select>';
   echo '<br><br>';
-
+  
+  echo 'Medium of object <font color="gray">(sculpture, mural, label, etc.)</font>:';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="12" name="object_medium">';
+  echo '&nbsp;&nbsp;';
+  
+  echo 'Dimensions of object:';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="12" name="object_dimensions">';
+  echo '<br><br>';
+  
   // Nation, state, city, name, taxon, website, collection, citation, description, comments, permission
   echo 'Nation: <input type="text" size="15" name="nation">&nbsp;&nbsp;';
   echo 'State/Province: <input type="text" size="15" name="state">&nbsp;&nbsp;';
   echo 'City: <input type="text" size="15" name="city"><br><br>';
+
   echo 'What insect is featured? &nbsp; Common name:';
   echo '&nbsp;&nbsp;';
   echo '<input type="text" size="30" name="taxon_common_name">';
@@ -502,31 +526,147 @@
   echo '<input type="text" size="46" name="taxon_species">';
   echo '<br><br>';
   
-  echo 'Website:<br>';
+
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo 'Common name 2:';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="30" name="taxon_common_name2">';
+  echo '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
+  echo 'Taxon order 2:';
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo '<select name="taxon_order2">';
+  echo '<option disabled selected value> ------------------- another taxon order? ------------------- </option>';
+  for ($inum_orders=0; $inum_orders<$num_orders; $inum_orders++) {
+      if ($taxon_orders[$inum_orders][0]==$iorder_selected) {
+               $selected = 'selected';
+      } else { $selected = '';
+      }
+      //$order_id_order_menu = $taxon_orders[$inum_orders][0];
+      $taxon_order2         = $taxon_orders[$inum_orders][1];
+      //echo '<option value="'.$order_id_order_menu.'" '.$selected.'>'.
+      echo '<option value="'.$taxon_order2.'" '.$selected.'>'.
+                             $taxon_order2.'</option>';
+  }
+  echo '</select>';
+  echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  
+  echo 'Taxon family 2 (e.g., Apidae):';
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo '<input type="text" size="46" name="taxon_family2">';
+  echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  
+  echo 'Taxon species 2 (e.g., <i>Apis mellifera</i>):';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="46" name="taxon_species2">';
+  echo '<br><br>';
+  
+
+
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo 'Common name 3:';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="30" name="taxon_common_name3">';
+  echo '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
+  echo 'Taxon order 3:';
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo '<select name="taxon_order3">';
+  echo '<option disabled selected value> ------------------- another taxon order? ------------------- </option>';
+  for ($inum_orders=0; $inum_orders<$num_orders; $inum_orders++) {
+      if ($taxon_orders[$inum_orders][0]==$iorder_selected) {
+               $selected = 'selected';
+      } else { $selected = '';
+      }
+      //$order_id_order_menu = $taxon_orders[$inum_orders][0];
+      $taxon_order3         = $taxon_orders[$inum_orders][1];
+      //echo '<option value="'.$order_id_order_menu.'" '.$selected.'>'.
+      echo '<option value="'.$taxon_order3.'" '.$selected.'>'.
+                             $taxon_order3.'</option>';
+  }
+  echo '</select>';
+  echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  
+  echo 'Taxon family 3 (e.g., Apidae):';
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo '<input type="text" size="46" name="taxon_family3">';
+  echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  
+  echo 'Taxon species 3 (e.g., <i>Apis mellifera</i>):';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="46" name="taxon_species3">';
+  echo '<br><br>';
+  
+
+
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo 'Common name 4:';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="30" name="taxon_common_name4">';
+  echo '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
+  echo 'Taxon order 4:';
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo '<select name="taxon_order4">';
+  echo '<option disabled selected value> ------------------- another taxon order? ------------------- </option>';
+  for ($inum_orders=0; $inum_orders<$num_orders; $inum_orders++) {
+      if ($taxon_orders[$inum_orders][0]==$iorder_selected) {
+               $selected = 'selected';
+      } else { $selected = '';
+      }
+      //$order_id_order_menu = $taxon_orders[$inum_orders][0];
+      $taxon_order4         = $taxon_orders[$inum_orders][1];
+      //echo '<option value="'.$order_id_order_menu.'" '.$selected.'>'.
+      echo '<option value="'.$taxon_order4.'" '.$selected.'>'.
+                             $taxon_order4.'</option>';
+  }
+  echo '</select>';
+  echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  
+  echo 'Taxon family 4 (e.g., Apidae):';
+  echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  echo '<input type="text" size="46" name="taxon_family4">';
+  echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  
+  echo 'Taxon species 4 (e.g., <i>Apis mellifera</i>):';
+  echo '&nbsp;&nbsp;';
+  echo '<input type="text" size="46" name="taxon_species4">';
+  echo '<br><br>';
+  
+
+
+
+
+  echo 'Website featuring the object:<br>';
+  echo '<font color="gray">Example: <i>http://pupating.org/docs/science/</i></font><br>';
   echo '<input type="text" size="66" name="url">';
   echo '<br><br>';
   
-  echo 'Collection (private/gallery/museum/Internet):<br>';
+  echo 'Collection containing the object (private/gallery/museum/Internet):<br>';
+  echo '<font color="gray">Example: <i>The Metropolitan Museum Entomology Collection</i></font><br>';
   echo '<input type="text" size="66" name="collection">';
   echo '<br><br>';
   
-  echo 'Citation (for publications):<br>';
-  echo '<textarea cols="64" rows="1" name="citation"></textarea>';
-  echo '<br><br>';
-  
-  echo 'Description (text/html):<br>';
+  echo 'Description of the object (text/html format):<br>';
+  echo '<font color="gray">Example: <i>Fig.1 caption: "Composite of images from behaviour journals..."</i></font><br>';
   echo '<textarea cols="64" rows="2" name="description"></textarea>';
   echo '<br><br>';
   
-  echo 'Comments (will not be visible on the website):<br>';
-  echo '<textarea cols="64" rows="2" name="comments"></textarea>';
-  echo '<br><br>';
-  
-  echo 'Permission (license/sharing information):<br>';
+  echo 'Permission (license/sharing) information:<br>';
+  echo '<font color="gray">Example: <i>Creative Commons Attribution license ("CC BY": https://creativecommons.org/licenses/)</i></font><br>';
   echo '<textarea cols="64" rows="2" name="permission_information"></textarea>';
   echo '<br><br>';
   
+  echo 'Citation (for publications)<br>';
+  echo '<font color="gray">Example: <i>Klein BA, Seeley TD. 2015. The declining use of animal and behaviour images in animal behaviour journals. Animal Behaviour. 103:171-177.</i></font><br>';
+  echo '<textarea cols="64" rows="1" name="citation"></textarea>';
+  echo '<br><br>';
   
+  echo 'Comments to the web administrator (will not be visible on the website):<br>';
+  echo '<font color="gray">Example: <i>Please show the complete caption for Fig.1.</i></font><br>';
+  echo '<textarea cols="64" rows="2" name="comments"></textarea>';
+  echo '<br><br>';
+    
   // Line & buttons
   echo '<hr size="1" />';
   $spc1 = '<br>';

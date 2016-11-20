@@ -10,8 +10,6 @@ function searchForm()
   
   // variable setup for the form.
   $searchwords = (isset($_GET['words']) ? htmlspecialchars(stripslashes($_REQUEST['words'])) : '');
-  $boolean = (($_GET['mode'] == 'boolean') ? ' selected="selected"' : '' );
-  // $normal = (($_GET['mode'] == 'normal') ? ' selected="selected"' : '' );
 
   echo '<form method="get" action="'.$_SERVER['PHP_SELF'].'">';
   echo '<input type="hidden" name="cmd" value="search" />';
@@ -19,6 +17,8 @@ function searchForm()
   echo '&nbsp;</span>';
   echo '<input type="submit" value="Search" />';
 /*
+  $boolean = (($_GET['mode'] == 'boolean') ? ' selected="selected"' : '' );
+  // $normal = (($_GET['mode'] == 'normal') ? ' selected="selected"' : '' );
   echo '&nbsp;';
   echo '<select name="mode">';
   echo '<option value="boolean"'.$boolean.'>Boolean</option>';

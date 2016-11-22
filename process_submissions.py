@@ -92,6 +92,7 @@ for submitted_file in submitted_files:
 
         # If the file has not already been reformatted (at original size):
         if converted_file not in converted_images:
+
             output_file = '"{0}"'.format(os.path.join(images_path,
                                                       converted_file))
             # Reformat (without resizing):
@@ -103,6 +104,7 @@ for submitted_file in submitted_files:
 
         # If the file has not already been reformatted and resized:
         if converted_file not in converted_resized_images:
+
             output_file = '"{0}"'.format(os.path.join(resized_images_path,
                                                       converted_file))
             # Reformat and resize:

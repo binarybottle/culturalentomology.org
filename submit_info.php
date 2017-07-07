@@ -12,6 +12,32 @@
   $entry_date = date("Ymd");
   $entry_time = time();
 
+  // PHPMailer SMTP settings:
+  //SMTP needs accurate times, and the PHP timezone MUST be set
+  //This should be done in your php.ini, but this is how to do it if you don't have access to that
+  date_default_timezone_set('Etc/UTC');
+  require $phpmailer_path;
+  //Create a new PHPMailer instance
+  $mail = new PHPMailer;
+  //Tell PHPMailer to use SMTP
+  $mail->isSMTP();
+  $mail->SMTPDebug = $smtp_debug;
+  //Ask for HTML-friendly debug output
+  $mail->Debugoutput = 'html';
+  //Set the hostname of the mail server
+  $mail->Host = $smtp_host;
+  //Set the SMTP port number - likely to be 25, 465 or 587
+  $mail->Port = $smtp_port;
+  //Whether to use SMTP authentication
+  $mail->SMTPAuth = true;
+  //Username to use for SMTP authentication
+  $mail->Username = $smtp_username;
+  //Password to use for SMTP authentication
+  $mail->Password = $smtp_password;
+  //Set who the message is to be sent from
+  $mail->setFrom($smtp_from, $smtp_from_text);
+  //Set an alternative reply-to address
+  $mail->addReplyTo($smtp_replyto, $smtp_replyto_name);
 
   if ($debug==1) {
       $submit_first = "Arno";
@@ -355,7 +381,7 @@
   if ($first_submission==1) {
       echo '<h1>Submit a cultural entomology object!</h1>
       <div class="textblocks">
-      <p>This page allows you to submit files and any information you can related to a single cultural entomology object.  Any files you submit will be presented in the order you upload them (this can be useful for sequential pages of a book, for example).  Acceptable file formats include jpg, gif, bmp, png, tiff, pdf, mpa, mp3, mov, and wav, and must be no larger than '.$max_size_string. ' each.
+      <p>This page allows you to submit files and any information you can relate to a single cultural entomology object.  Any files you submit will be presented in the order you upload them (this can be useful for sequential pages of a book, for example).  Acceptable file formats include jpg, gif, bmp, png, tiff, pdf, mpa, mp3, mov, and wav, and must be no larger than '.$max_size_string. ' each.
       </p>
       <p>We will review your submission for possible inclusion in the database and website. Content you submit to the database should not contain third party copyrighted material, or material that is subject to other third party proprietary rights, unless you have permission.</p>
       </div>';
@@ -370,12 +396,10 @@
       $review_link  = 'http://culturalentomology.org/submit_review.php?userID='.$userID.
                       '&firstname='.$submit_first.'&lastname='.$submit_last.'&email='.$submit_email.
                       '&entry_time='.$entry_time;
-      $mail_to      = $admin_email;
-      $mail_from    = 'From: Insects Incorporated database of cultural entomology';
-      $mail_subject = 'Submission to the Insects Incorporated database of cultural entomology';
-      $mail_body    = "
+      $mail->Subject = 'Submission to the Insects Incorporated database of cultural entomology';
+      $mail->Body    = "
       
-                       New submission for review!
+                       New submission:
       
                        $review_link
       
@@ -383,9 +407,16 @@
                        Email: $submit_email
       
                       ";
-      
-      if (!mail($mail_to, $mail_subject, $mail_body, $mail_from)) {
-        echo '<p><span class="redfont">Notification message delivery failed. Please contact barrett[at]pupating.org.</span></p><br /><br />';
+
+      //Set who the message is to be sent to
+      $mail->addAddress($admin_email, $admin_name);
+
+      //send the message, check for errors
+      if (!$mail->send()) {
+          echo "Mailer Error: " . $mail->ErrorInfo;
+          echo '<br><p><span class="redfont">Please contact info[at]culturalentomology.org.</span></p><br><br>';
+      //} else {
+      //    echo "Message sent!<br><br>"; 
       }
   }
 ?>

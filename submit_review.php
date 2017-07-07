@@ -13,6 +13,33 @@ $submit_last  = $_GET['submit_last'];
 $submit_email = $_GET['submit_email'];
 $entry_time   = $_GET['entry_time'];
 
+  // PHPMailer SMTP settings:
+  //SMTP needs accurate times, and the PHP timezone MUST be set
+  //This should be done in your php.ini, but this is how to do it if you don't have access to that
+  date_default_timezone_set('Etc/UTC');
+  require $phpmailer_path;
+  //Create a new PHPMailer instance
+  $mail = new PHPMailer;
+  //Tell PHPMailer to use SMTP
+  $mail->isSMTP();
+  $mail->SMTPDebug = $smtp_debug;
+  //Ask for HTML-friendly debug output
+  $mail->Debugoutput = 'html';
+  //Set the hostname of the mail server
+  $mail->Host = $smtp_host;
+  //Set the SMTP port number - likely to be 25, 465 or 587
+  $mail->Port = $smtp_port;
+  //Whether to use SMTP authentication
+  $mail->SMTPAuth = true;
+  //Username to use for SMTP authentication
+  $mail->Username = $smtp_username;
+  //Password to use for SMTP authentication
+  $mail->Password = $smtp_password;
+  //Set who the message is to be sent from
+  $mail->setFrom($smtp_from, $smtp_from_text);
+  //Set an alternative reply-to address
+  $mail->addReplyTo($smtp_replyto, $smtp_replyto_name);
+
 $image_extensions_for_viewing = array(
   "bmp",
   "gif",
@@ -77,16 +104,16 @@ if ($_POST['submitForm2'] == "Respond")
     $mail_to = $row->user_email;
     $firstname = $row->user_name_first;
     $lastname = $row->user_name_last;
+    $mail->addAddress($mail_to, $firstname." ".$row->lastname);
 
     //-------------------------
     // Response: Accept/Decline
     //-------------------------
-    $mail_from    = 'From: Insects Incorporated';
-    $mail_subject = 'Submission to Insects Incorporated Cultural Entomology Database';
+    $mail->Subject = 'Submission to the Insects Incorporated database of cultural entomology';
     
     // Email acceptance:
     if ($_POST['decision'] == "accept") {
-        $mail_body  = "
+        $mail->Body = "
         
         Dear $firstname $lastname,
         
@@ -101,7 +128,8 @@ if ($_POST['submitForm2'] == "Respond")
         http://pupating.org
         ";
         
-        if (!mail($mail_to, $mail_subject, $mail_body, $mail_from)) {
+        if (!$mail->send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
             echo '<h1>Message delivery failed to reach '.$firstname.' '.$lastname.' ('.$mail_to.').</h1></div><br><br>';
             die;
         }
@@ -114,7 +142,7 @@ if ($_POST['submitForm2'] == "Respond")
     }
     // Email rejection:
     if ($_POST['decision'] == "decline") {
-        $mail_body  = "
+        $mail->Body = "
         
         Dear $firstname $lastname,
         
@@ -127,7 +155,8 @@ if ($_POST['submitForm2'] == "Respond")
         http://pupating.org
         ";
 
-        if (!mail($mail_to, $mail_subject, $mail_body, $mail_from)) {
+        if (!$mail->send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
             echo '<h1>Message delivery failed to reach '.$firstname.' '.$lastname.' ('.$mail_to.').</h1></div>';
             die;
         }
@@ -417,7 +446,7 @@ if ($_POST['submitForm2'] == "Respond")
                     $converted_filename = str_replace($extension, $converted_image_extension, $filename);
                     echo '<a href="'.$converted_images_path.'/'.$converted_filename.'" target="_blank"><img src="'.$converted_images_path.'/'.$converted_filename.'" width="480" border="0"></a><span class="font80">'.$converted_images_path.'/'.$converted_filename.'</span><br>';
                 } else {
-                    echo '<span class="tip">File: </span><a href="'.$converted_images_path.'/'.$filename.'" target="_blank">'.$converted_images_path.'/'.$filename.'</a><br>';
+                    echo '<span class="tip">File: </span><a href="'.$moved_nonimages_path.'/'.$filename.'" target="_blank">'.$moved_nonimages_path.'/'.$filename.'</a><br>';
                 }
             }
         }

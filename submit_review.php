@@ -13,47 +13,32 @@ $submit_last  = $_GET['submit_last'];
 $submit_email = $_GET['submit_email'];
 $entry_time   = $_GET['entry_time'];
 
-  // PHPMailer SMTP settings:
-  //SMTP needs accurate times, and the PHP timezone MUST be set
-  //This should be done in your php.ini, but this is how to do it if you don't have access to that
-  date_default_timezone_set('Etc/UTC');
-  require $phpmailer_path;
-  //Create a new PHPMailer instance
-  $mail = new PHPMailer;
-  //Tell PHPMailer to use SMTP
-  $mail->isSMTP();
-  $mail->SMTPDebug = $smtp_debug;
-  //Ask for HTML-friendly debug output
-  $mail->Debugoutput = 'html';
-  //Set the hostname of the mail server
-  $mail->Host = $smtp_host;
-  //Set the SMTP port number - likely to be 25, 465 or 587
-  $mail->Port = $smtp_port;
-  //Whether to use SMTP authentication
-  $mail->SMTPAuth = true;
-  //Username to use for SMTP authentication
-  $mail->Username = $smtp_username;
-  //Password to use for SMTP authentication
-  $mail->Password = $smtp_password;
-  //Set who the message is to be sent from
-  $mail->setFrom($smtp_from, $smtp_from_text);
-  //Set an alternative reply-to address
-  $mail->addReplyTo($smtp_replyto, $smtp_replyto_name);
-
-$image_extensions_for_viewing = array(
-  "bmp",
-  "gif",
-  "jpg",
-  "jpeg",
-  "pjpeg",
-  "png",
-  "BMP",
-  "GIF",
-  "JPG",
-  "JPEG",
-  "PJPEG",
-  "PNG"
-); 
+// PHPMailer SMTP settings:
+//SMTP needs accurate times, and the PHP timezone MUST be set
+//This should be done in your php.ini, but this is how to do it if you don't have access to that
+date_default_timezone_set('Etc/UTC');
+require $phpmailer_path;
+//Create a new PHPMailer instance
+$mail = new PHPMailer;
+//Tell PHPMailer to use SMTP
+$mail->isSMTP();
+$mail->SMTPDebug = $smtp_debug;
+//Ask for HTML-friendly debug output
+$mail->Debugoutput = 'html';
+//Set the hostname of the mail server
+$mail->Host = $smtp_host;
+//Set the SMTP port number - likely to be 25, 465 or 587
+$mail->Port = $smtp_port;
+//Whether to use SMTP authentication
+$mail->SMTPAuth = true;
+//Username to use for SMTP authentication
+$mail->Username = $smtp_username;
+//Password to use for SMTP authentication
+$mail->Password = $smtp_password;
+//Set who the message is to be sent from
+$mail->setFrom($smtp_from, $smtp_from_text);
+//Set an alternative reply-to address
+$mail->addReplyTo($smtp_replyto, $smtp_replyto_name);
 
 // Determine if the submit button has been clicked.
 // If so, begin validating form data.

@@ -106,6 +106,7 @@ include_once("shared/banner.html");
          $image_date             = $row->year;
          $image_date_circa       = $row->time_period;
          $image_indate           = $row->entry_date;
+         $image_update           = $row->entry_update;
          $image_registered       = $row->registered;
          $image_hide             = $row->hide;
 
@@ -158,8 +159,7 @@ include_once("shared/banner.html");
                                                                  .$image_collection     .'</textarea><br>';
          echo 'Input date:           <input type="text" size="8"  name="myform[update_indate'.$i.']" value="'.$image_indate     .'">';
          echo '&nbsp;&nbsp;&nbsp;&nbsp;';
-         $update_date = date("Ymd");
-         echo 'Latest update:        <input type="text" size="8"  name="myform[update_update'.$i.']" value="'. $update_date .'">';
+         echo 'Latest update:        <input type="text" size="8"  name="myform[update_update'.$i.']" value="'. $image_update .'">';
          echo '&nbsp;&nbsp;&nbsp;&nbsp;';
          if ($image_registered==1) {
                   $registered = 'checked'; $unregd = '';
@@ -238,7 +238,8 @@ include_once("shared/banner.html");
               $sql2 .= 'hide           = "'.$image_hide.'" ';
               $sql2 .= ' WHERE pk_object_id  = "'.$image_ID.'" ';
 
-              echo '<br>'.$sql2.'<br>';
+	      // Print query:
+              //echo '<br>'.$sql2.'<br>';
 
               $result2 = mysql_query($sql2) or die (mysql_error());           
 

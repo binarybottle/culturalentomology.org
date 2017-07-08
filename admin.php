@@ -88,10 +88,9 @@ include_once("shared/banner.html");
 
    if ($result && $num_rows>0) {
 
-//      echo '<form name="myform" method="post" action="admin2.php?cmd=search&words='.
-//                                       $searchstring.'&mode='.$mode.'&start='.$searchstart.'&stop='.$searchstop.'">';
-      echo '<form name="myform" method="post" action="admin2.php" enctype="multipart/form-data">';
-      echo '<input type="hidden" name="num_rows" value="'.$num_rows.'">';
+      echo '<form name="myform" method="post" action="admin.php?cmd=search&words='.$searchstring.'&mode='.$mode.'&start='.$searchstart.'&stop='.$searchstop.'">';
+//      echo '<form name="myform" method="post" action="admin2.php" enctype="multipart/form-data">';
+//      echo '<input type="hidden" name="num_rows" value="'.$num_rows.'">';
 
    // Loop through search results      
       $i=1;
@@ -107,7 +106,6 @@ include_once("shared/banner.html");
          $image_date             = $row->year;
          $image_date_circa       = $row->time_period;
          $image_indate           = $row->entry_date;
-         $image_update           = $row->entry_update;
          $image_registered       = $row->registered;
          $image_hide             = $row->hide;
 
@@ -137,7 +135,7 @@ include_once("shared/banner.html");
          echo '  </td>';
          echo '  <td width="560">';
 
-         echo '<input type="hidden" name="update_ID'.$i.'" value="'.$image_ID.'"><br>';
+         echo '<input type="hidden" name="myform[update_ID'.$i.']" value="'.$image_ID.'"><br>';
 
          echo '<div class="font80" color="#996663"><i>';
          echo 'File: '.$image_file.'<br>';
@@ -160,7 +158,8 @@ include_once("shared/banner.html");
                                                                  .$image_collection     .'</textarea><br>';
          echo 'Input date:           <input type="text" size="8"  name="myform[update_indate'.$i.']" value="'.$image_indate     .'">';
          echo '&nbsp;&nbsp;&nbsp;&nbsp;';
-         echo 'Latest update:        <input type="text" size="8"  name="myform[update_update'.$i.']" value="'.$image_update     .'">';
+         $update_date = date("Ymd");
+         echo 'Latest update:        <input type="text" size="8"  name="myform[update_update'.$i.']" value="'. $update_date .'">';
          echo '&nbsp;&nbsp;&nbsp;&nbsp;';
          if ($image_registered==1) {
                   $registered = 'checked'; $unregd = '';
@@ -189,6 +188,63 @@ include_once("shared/banner.html");
       echo '<input type="reset"  value="Reset"  />';
       echo '</form>';
 
+      // Update database:
+      if ($num_rows>0) {
+
+         if (isset($_POST['myform'])) {
+             $values = $_POST['myform'];
+             //echo $values['file1'];
+         }
+
+         if(isset($values['file1'])) {
+                  $update_entry = 1;
+         } else { $update_entry = 0;
+         } 
+
+         if ($update_entry==1) {
+
+            //$i2 = 1; 
+            //echo $values['update_title'.$i2];
+
+            $i2=0;
+            while($i2 < $num_rows) {
+              $i2=$i2+1;
+
+              $image_title          = trim(mysql_real_escape_string(stripslashes($values['update_title'.$i2])));
+              $image_date_circa     = trim(mysql_real_escape_string(stripslashes($values['update_circa'.$i2])));
+              $image_date           = trim(mysql_real_escape_string(stripslashes($values['update_date'.$i2])));
+              $image_medium         = trim(mysql_real_escape_string(stripslashes($values['update_medium'.$i2])));
+              $image_creator        = trim(mysql_real_escape_string(stripslashes($values['update_creator'.$i2])));
+              $image_notes          = trim(mysql_real_escape_string(stripslashes($values['update_notes'.$i2])));
+              $image_collection     = trim(mysql_real_escape_string(stripslashes($values['update_collection'.$i2])));
+              $image_indate         = trim(mysql_real_escape_string(stripslashes($values['update_indate'.$i2])));
+              $image_update         = trim(mysql_real_escape_string(stripslashes($values['update_update'.$i2])));
+              $image_registered     = trim(mysql_real_escape_string(stripslashes($values['update_registered'.$i2])));
+              $image_hide           = trim(mysql_real_escape_string(stripslashes($values['update_hide'.$i2])));;
+              $image_ID             = trim(mysql_real_escape_string(stripslashes($values['update_ID'.$i2])));
+
+              $sql2  = 'UPDATE objects SET ';
+
+              $sql2 .= 'title          = "'.$image_title.'", ';
+              $sql2 .= 'time_period    = "'.$image_date_circa.'", ';
+              $sql2 .= 'year           = "'.$image_date.'", ';
+              $sql2 .= 'object_medium  = "'.$image_medium.'", ';
+              $sql2 .= 'creator        = "'.$image_creator.'", ';
+              $sql2 .= 'description    = "'.$image_notes.'", ';
+              $sql2 .= 'collection     = "'.$image_collection.'", ';
+              $sql2 .= 'entry_date     = "'.$image_indate.'", ';
+              $sql2 .= 'entry_update   = "'.$image_update.'", ';
+              $sql2 .= 'registered     = "'.$image_registered.'", ';
+              $sql2 .= 'hide           = "'.$image_hide.'" ';
+              $sql2 .= ' WHERE pk_object_id  = "'.$image_ID.'" ';
+
+              echo '<br>'.$sql2.'<br>';
+
+              $result2 = mysql_query($sql2) or die (mysql_error());           
+
+           }  //while($i2 < $num_rows) {
+         }    //if ($update_entry==1) {
+      }       //if ($num_rows>0) {
   }
 
 ?>

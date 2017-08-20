@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 """
 Use ImageMagick's convert command to resize and reformat image files.
+See https://www.imagemagick.org/script/command-line-processing.php
 
-2016 . Arno Klein (arno@binarybottle.com) . Apache v2.0 License
+2016-2017 . Arno Klein (arno@binarybottle.com) . Apache v2.0 License
 """
 import os
 import sys
@@ -23,7 +24,8 @@ resized_images_path = '/home/pupating/culturalentomology.org/submitted_converted
 image_extensions = ['bmp','gif','jpg','jpeg','pjpeg','png','tif','tiff',
                     'BMP','GIF','JPG','JPEG','PJPEG','PNG','TIF','TIFF']
 new_extension = 'jpg'
-resize_dims = '1200x' #'800x'
+resize_heights = [5000, 4750, 4500, 4250, 4000, 3750, 3500, 3250, 3000, 2750, 2500,
+                  2250, 2000, 1750, 1500, 1250, 1000, 800]  # resize in stages
 quality = '100'
 cmd = 'convert'
 
@@ -105,15 +107,23 @@ for submitted_file in submitted_files:
         # If the file has not already been reformatted and resized:
         if converted_file not in converted_resized_images:
 
-            output_file = '"{0}"'.format(os.path.join(resized_images_path,
-                                                      converted_file))
-            # Reformat and resize:
-            run_convert_image(input_file, resize_dims, output_file)
+            input_file = '"{0}"'.format(os.path.join(images_path, converted_file))
+            copy_file = '"{0}"'.format(os.path.join(resized_images_path,
+                                                    converted_file))
+            # Copy:
+            args = ['cp', input_file, copy_file]
+            try_command(" ".join(args))
+            try_command("chmod 755 " + copy_file)
 
-            # Keep only those converted images with size greater than zero:
-            converted_resized_images = store_nonzero_files(converted_resized_images,
-                                                           resized_images_path)
+            # Loop through heights and shrink only if bigger than supplied dimensions:
+            for height in resize_heights:
+                resize_dims = '>{0}x'.format(height)
+                run_convert_image(copy_file, resize_dims, copy_file)
 
+             # Keep only those converted images with size greater than zero:
+             converted_resized_images = store_nonzero_files(converted_resized_images,
+                                                            resized_images_path)
+                
     # Non-image files:
     else:
         moved_file = os.path.join(nonimages_path, submitted_file)

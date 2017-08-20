@@ -59,6 +59,7 @@ def run_convert_image(input_file, resize_dims, output_file):
     else:
         arg_resize = " "
     args = ['convert -flatten', input_file, arg_resize, output_file]
+    print(" ".join(args))
     try_command(" ".join(args))
 
     # Change permissions:
@@ -117,12 +118,13 @@ for submitted_file in submitted_files:
 
             # Loop through heights and shrink only if bigger than supplied dimensions:
             for height in resize_heights:
-                resize_dims = '>{0}x'.format(height)
+                resize_dims = "'>{0}x'".format(height)
                 run_convert_image(copy_file, resize_dims, copy_file)
+                try_command("chmod 755 " + copy_file)
 
-             # Keep only those converted images with size greater than zero:
-             converted_resized_images = store_nonzero_files(converted_resized_images,
-                                                            resized_images_path)
+            # Keep only those converted images with size greater than zero:
+            converted_resized_images = store_nonzero_files(converted_resized_images,
+                                                           resized_images_path)
                 
     # Non-image files:
     else:

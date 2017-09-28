@@ -125,22 +125,7 @@ include_once("shared/banner.html");
 
                     // Show converted image if it exists
                     if (file_exists($converted_images_path.'/'.$converted_filename)) {
-                        echo '<a href="'.$converted_images_path.'/'.$converted_filename.'" target="_blank"><img src="'.$converted_images_path.'/'.$new_file.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$new_file.'</span><br><br>';
-
-                    // Show original image if it wasn't converted
-                    } else {
-                        echo '<a href="'.$submitted_files_path.'/'.$image_file.'" target="_blank"><img src="'.$submitted_files_path.'/'.$image_file.'" width="480" border="0"><br></a><span class="font80">'.$submitted_files_path.'/'.$image_file.'</span><br><br>';
-                    }
-
-                // If not an image, show a link to the file
-                } else {
-                    // Show moved non-image file if it exists
-                    if (file_exists($moved_nonimages_path.'/'.$image_file)) {
-                        echo '<br><span class="tip">File: </span><a href="'.$moved_nonimages_path.'/'.$image_file.'" target="_blank">'.$moved_nonimages_path.'/'.$image_file.'</a><br><br>';
-                    // Show original non-image if it wasn't moved
-                    } else {
-                        echo '<br><span class="tip">File: </span><a href="'.$submitted_files_path.'/'.$image_file.'" target="_blank">'.$submitted_files_path.'/'.$image_file.'</a><br><br>';
-                    }
+                        echo '<a href="'.$converted_images_path.'/'.$converted_filename.'" target="_blank"><img src="'.$converted_images_path.'/'.$converted_filename.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$converted_filename.'</span><br><br>';
                 }
             }
 

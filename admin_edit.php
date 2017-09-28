@@ -114,7 +114,7 @@ include_once("shared/banner.html");
          $converted_filename = '';
          if (strlen($image_file) > 0) {
              $extension = end(explode(".", $image_file));
-             echo 'FILE: '.$image_file.' '.$extension;
+             echo 'FILE: '.$image_file.' '.$extension.' '.$image_extensions_for_viewing;
              if ( in_array($extension, $image_extensions_for_viewing ) ) {
                  $converted_filename = str_replace($extension, $converted_image_extension, $image_file);
              }

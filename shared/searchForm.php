@@ -20,10 +20,8 @@ function searchForm()
   echo '&nbsp;</span>';
   echo '<br /><br />';
 
-  echo '<b>AND</b> optional ID# Start: <input type="text" size="6" name="start\
-" value="'.$range_start.'" /> ';
-  echo '&nbsp;&nbsp; End: <input type="text" size="6" name="stop" value="'.$range_\
-stop.'" /></i></font> ';
+  echo '<b>AND</b> optional ID# Start: <input type="text" size="6" name="start" value="'.$range_start.'" /> ';
+  echo '&nbsp;&nbsp; End: <input type="text" size="6" name="stop" value="'.$range_stop.'" /></i></font> ';
 
   echo '<input type="submit" value="Search" />';
 /*

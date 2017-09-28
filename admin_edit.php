@@ -54,20 +54,20 @@ $all_image_extensions = array(
         searchForm();
     
         $searchstring = mysql_real_escape_string($_GET['words']);
-        $searchstart  = mysql_real_escape_string($_GET['start']);
-        $searchstop   = mysql_real_escape_string($_GET['stop']);
+        $range_start  = mysql_real_escape_string($_GET['start']);
+        $range_stop   = mysql_real_escape_string($_GET['stop']);
 
-        if (strlen(trim($searchstart))==0) {
-           $searchstart = 1;
+        if (strlen(trim($range_start))==0) {
+           $range_start = 1;
         }
-        if (strlen(trim($searchstop))==0) {
-           $searchstop = 9999999;
+        if (strlen(trim($range_stop))==0) {
+           $range_stop = 9999999;
         }
 
         if (strlen(trim($searchstring))==0) {
            $sql = "SELECT * FROM objects
-                   WHERE pk_object_id >= " . (int)$searchstart . 
-                   " AND pk_object_id <= " . (int)$searchstop .
+                   WHERE pk_object_id >= " . (int)$range_start . 
+                   " AND pk_object_id <= " . (int)$range_stop .
                    " ORDER BY pk_object_id ASC";
         }
         else {
@@ -86,8 +86,8 @@ $all_image_extensions = array(
            $sql = "SELECT * FROM objects
                    WHERE MATCH(title,category1,category2,category3,creator,object_medium,time_period,nation,state,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,description)
                    AGAINST ('$searchstring' $bool)
-                     AND pk_object_id >= " . (int)$searchstart . 
-                   " AND pk_object_id <= " . (int)$searchstop .
+                     AND pk_object_id >= " . (int)$range_start . 
+                   " AND pk_object_id <= " . (int)$range_stop .
                    " ORDER BY pk_object_id ASC";
 
            //WHERE MATCH(title, category1, category2, category3, category4, creator, object_medium, time_period, nation, state, city, taxon_common_name, taxon_order, taxon_family, taxon_species, taxon_common_name2, taxon_common_name3, taxon_common_name4, taxon_order2, taxon_order3, taxon_order4, taxon_family2, taxon_family3, taxon_family4, taxon_species2, taxon_species3, taxon_species4, collection, citation, description, comments, curator)
@@ -109,7 +109,7 @@ $all_image_extensions = array(
 
    if ($result && $num_rows>0) {
 
-      echo '<form name="myform" method="post" action="admin_edit.php?cmd=search&words='.$searchstring.'&mode='.$mode.'&start='.$searchstart.'&stop='.$searchstop.'">';
+      echo '<form name="myform" method="post" action="admin_edit.php?cmd=search&words='.$searchstring.'&mode='.$mode.'&start='.$range_start.'&stop='.$range_stop.'">';
 //      echo '<form name="myform" method="post" action="admin2.php" enctype="multipart/form-data">';
 
    // Loop through search results      

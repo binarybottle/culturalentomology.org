@@ -131,32 +131,17 @@ $all_image_extensions = array(
 
       // Image
          $converted_filename = '';
-
-
-            if (strlen($image_file) > 0) {
-                $path_parts = pathinfo($image_file);
-                $extension = $path_parts['extension'];
-
-                // If the file has an image extension
-                if ( in_array($extension, $all_image_extensions) ) {
-                    $filestem = $path_parts['filename'];
-                    $converted_filename = $filestem.'.'.$converted_image_extension;
-
-                    // Show converted image if it exists
-                    if (file_exists($converted_images_path.'/'.$converted_filename)) {
-                        echo '<a href="'.$converted_images_path.'/'.$converted_filename.'" target="_blank"><img src="'.$converted_images_path.'/'.$converted_filename.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$converted_filename.'</span><br><br>';
-                    }
-                }
-            }
-
-/*
          if (strlen($image_file) > 0) {
-             $extension = end(explode(".", $image_file));
-             if ( in_array($extension, $image_extensions_for_viewing ) ) {
-                 $converted_filename = str_replace($extension, $converted_image_extension, $image_file);
-             }
+            $path_parts = pathinfo($image_file);
+            $extension = $path_parts['extension'];
+
+            // If the file has an image extension
+            if ( in_array($extension, $all_image_extensions) ) {
+                $filestem = $path_parts['filename'];
+                $converted_filename = $filestem.'.'.$converted_image_extension;
+            }
          }
-*/
+
       // Line
          echo '<hr size="1" />';
 
@@ -168,7 +153,6 @@ $all_image_extensions = array(
          echo ' <tr>';
          echo '  <td width="240">';
 
-         echo $converted_images_path . '/' . $converted_filename;
          if (strlen($converted_filename) > 0) {
              echo '   <img src="' . $converted_images_path . '/' . $converted_filename . '" border="0" width="120">';
          }

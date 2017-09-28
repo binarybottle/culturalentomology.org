@@ -3,6 +3,25 @@ include_once("../db/culturalentomology_db.php");
 include_once("login.php");
 include_once("shared/header.html");
 include_once("shared/banner.html");
+
+$all_image_extensions = array(
+  "bmp",
+  "gif",
+  "jpg",
+  "jpeg",
+  "pjpeg",
+  "png",
+  "tif",
+  "tiff",
+  "BMP",
+  "GIF",
+  "JPG",
+  "JPEG",
+  "PJPEG",
+  "PNG",
+  "TIF",
+  "TIFF"
+);
 ?>
 
 <title>Edit the Cultural Entomology Database</title>

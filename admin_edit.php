@@ -121,6 +121,8 @@ include_once("shared/banner.html");
 
       // Line
          echo '<hr size="1" />';
+         echo 'FILE: '. $converted_images_path . '/' . $converted_filename;
+
 
       // Anchor
          echo '<a name="'.$image_ID.'"></a>';

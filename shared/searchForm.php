@@ -15,6 +15,13 @@ function searchForm()
   echo '<input type="hidden" name="cmd" value="search" />';
   echo '<span class="searchcaptions"><input type="text" size="60" name="words" value="'.$searchwords.'" /> ';
   echo '&nbsp;</span>';
+
+  $searchstart = (isset($_GET['start']) ? htmlspecialchars(stripslashes($_REQUEST[\
+'start'])) : '');
+  $searchstop  = (isset($_GET['stop'])  ? htmlspecialchars(stripslashes($_REQUEST[\
+'stop']))  : '');
+
+
   echo '<input type="submit" value="Search" />';
 /*
   $boolean = (($_GET['mode'] == 'boolean') ? ' selected="selected"' : '' );

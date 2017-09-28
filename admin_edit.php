@@ -68,7 +68,7 @@ $all_image_extensions = array(
            $sql = "SELECT * FROM objects
                    WHERE pk_object_id >= " . (int)$searchstart . 
                    " AND pk_object_id <= " . (int)$searchstop .
-                   " ORDER BY pk_object_id ASC, score";
+                   " ORDER BY pk_object_id ASC";
         }
         else {
            switch($_GET['mode'])
@@ -88,7 +88,7 @@ $all_image_extensions = array(
                    AGAINST ('$searchstring' $bool)
                      AND pk_object_id >= " . (int)$searchstart . 
                    " AND pk_object_id <= " . (int)$searchstop .
-                   " ORDER BY pk_object_id ASC, score";
+                   " ORDER BY pk_object_id ASC";
 
            //WHERE MATCH(title, category1, category2, category3, category4, creator, object_medium, time_period, nation, state, city, taxon_common_name, taxon_order, taxon_family, taxon_species, taxon_common_name2, taxon_common_name3, taxon_common_name4, taxon_order2, taxon_order3, taxon_order4, taxon_family2, taxon_family3, taxon_family4, taxon_species2, taxon_species3, taxon_species4, collection, citation, description, comments, curator)
         }

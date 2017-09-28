@@ -112,6 +112,7 @@ include_once("shared/banner.html");
 
       // Image
          $converted_filename = '';
+         echo 'FILE: '.$image_file;
          if (strlen($image_file) > 0) {
              $extension = end(explode(".", $image_file));
              if ( in_array($extension, $image_extensions_for_viewing ) ) {
@@ -121,8 +122,6 @@ include_once("shared/banner.html");
 
       // Line
          echo '<hr size="1" />';
-         echo 'FILE: '. $converted_images_path . '/' . $converted_filename;
-
 
       // Anchor
          echo '<a name="'.$image_ID.'"></a>';
@@ -148,7 +147,7 @@ include_once("shared/banner.html");
                     }
 */
 
-         echo 'FILE: '. $converted_images_path . '/' . $converted_filename;
+         echo $converted_images_path . '/' . $converted_filename;
          if (strlen($converted_filename) > 0) {
              echo '   <img src="' . $converted_images_path . '/' . $converted_filename . '" border="0" width="120">';
          }

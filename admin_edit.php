@@ -126,6 +126,7 @@ include_once("shared/banner.html");
                     // Show converted image if it exists
                     if (file_exists($converted_images_path.'/'.$converted_filename)) {
                         echo '<a href="'.$converted_images_path.'/'.$converted_filename.'" target="_blank"><img src="'.$converted_images_path.'/'.$converted_filename.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$converted_filename.'</span><br><br>';
+                    }
                 }
             }
 

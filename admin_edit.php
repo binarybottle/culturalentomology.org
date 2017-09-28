@@ -146,8 +146,8 @@ include_once("shared/banner.html");
                     }
 */
 
+         echo $converted_images_path . '/' . $converted_filename;
          if (strlen($converted_filename) > 0) {
-             echo $converted_images_path . '/' . $converted_filename;
              echo '   <img src="' . $converted_images_path . '/' . $converted_filename . '" border="0" width="120">';
          }
          echo '   <span class="font80">'.$image_ID.'</span>';

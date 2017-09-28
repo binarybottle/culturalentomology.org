@@ -129,7 +129,25 @@ include_once("shared/banner.html");
          echo '<table width="800" border="0" cellspacing="0" cellpadding="10">';
          echo ' <tr>';
          echo '  <td width="240">';
+
+/*
+                // If the file has an image extension
+                if ( in_array($extension, $all_image_extensions) ) {
+                    $filestem = $path_parts['filename'];
+                    $new_file = $filestem.'.'.$converted_image_extension;
+
+                    // Show converted image if it exists
+                    if (file_exists($converted_images_path.'/'.$new_file)) {
+                        echo '<a href="'.$converted_images_path.'/'.$new_file.'" target="_blank"><img src="'.$converted_images_path.'/'.$new_file.'" width="480" border="0"><br></a><span class="font80">'.$converted_images_path.'/'.$new_file.'</span><br><br>';
+
+                    // Show original image if it wasn't converted
+                    } else {
+                        echo '<a href="'.$submitted_files_path.'/'.$filename.'" target="_blank"><img src="'.$submitted_files_path.'/'.$filename.'" width="480" border="0"><br></a><span class="font80">'.$submitted_files_path.'/'.$filename.'</span><br><br>';
+                    }
+*/
+
          if (strlen($converted_filename) > 0) {
+             echo $converted_images_path . '/' . $converted_filename;
              echo '   <img src="' . $converted_images_path . '/' . $converted_filename . '" border="0" width="120">';
          }
          echo '   <span class="font80">'.$image_ID.'</span>';

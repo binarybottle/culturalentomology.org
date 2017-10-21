@@ -1,9 +1,7 @@
 <?php
-// submit.php is a form for a potential user to enter information 
-// (validated by the script) and includes submit_files.php 
-// (which in turn includes submit_info.php).
+// submit.php is a form to enter information (includes submit_info.php).
 //
-// Website by Arno Klein arno@binarybottle.com . 2016 . Apache v2.0 license
+// Website by Arno Klein arno@binarybottle.com . 2016-2017 . Apache v2.0 license
 //
  include_once("../db/culturalentomology_db.php");
  include_once("shared/header.html");

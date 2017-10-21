@@ -48,28 +48,25 @@ $all_image_extensions = array(
       echo '<div class="searchform">';
       searchForm();
       echo '</div>';
-
-      $words = $_GET['words'];
-      if (strlen($words) > 0) {  
-         $searchstring = mysql_real_escape_string($words);
-      } else {
-         $searchstring = $default_searchstring;
-      }
-/*
-      switch($_GET['mode'])
-      {
-        case "boolean":
-          $bool = ' IN BOOLEAN MODE ';
-          break;
-        case "normal":
-          $bool = '';
-          break;
-      }
-*/
   }
 
   $bool = ' IN BOOLEAN MODE ';
 
+  $range_start  = mysql_real_escape_string($_GET['start']);
+  $range_stop   = mysql_real_escape_string($_GET['stop']);
+  if (strlen(trim($range_start))>0 && strlen(trim($range_stop))>0) {
+           $sql = "SELECT * FROM objects
+                   WHERE pk_object_id >= " . (int)$range_start . 
+                   " AND pk_object_id <= " . (int)$range_stop .
+                   " ORDER BY pk_object_id ASC";
+  }
+  else {
+        $words = $_GET['words'];
+        if (strlen($words) > 0) {  
+           $searchstring = mysql_real_escape_string($words);
+        } else {
+           $searchstring = $default_searchstring;
+        }
 
   /* SQL query:
      ALTER TABLE `objects` ADD FULLTEXT(`title`,`category1`,`category2`,`category3`,`category4`,`creator`,`year`,`object_medium`,`time_period`,`nation`,`state`,`city`,`taxon_common_name`,`taxon_order`,`taxon_family`,`taxon_species`,`collection`,`citation`,`description`,`permission_information`)
@@ -82,6 +79,8 @@ $all_image_extensions = array(
           AND hide='0' AND registered='1'
           ORDER BY pk_object_id ASC, score";
           //ORDER BY entry_date DESC, entry_update ASC, score";
+
+  }
 
   $result = mysql_query($sql) or die (mysql_error());
 

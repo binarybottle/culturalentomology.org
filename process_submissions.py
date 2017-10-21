@@ -91,11 +91,10 @@ for submitted_file in submitted_files:
     filestem = '.'.join(exploded_filename[:-1])
     extension = exploded_filename[-1]
     if extension in image_extensions:
-        converted_file = '.'.join([filestem, new_extension])
 
         # If the file has not already been reformatted (at original size):
+        converted_file = '.'.join([filestem, new_extension])
         if converted_file not in converted_images:
-
             output_file = '"{0}"'.format(os.path.join(images_path,
                                                       converted_file))
             # Reformat (without resizing):
@@ -104,8 +103,24 @@ for submitted_file in submitted_files:
             # Keep only those converted images with size greater than zero:
             converted_images = store_nonzero_files(converted_images,
                                                    images_path)
+    # Non-image files:
+    else:
+        moved_file = os.path.join(nonimages_path, submitted_file)
+        shutil.move(input_file_no_quotes, moved_file)
+        try_command("chmod 755 " + moved_file)
 
-        # If the file has not already been reformatted and resized:
+#-----------------------------------------------------------------------------------
+# Loop through reformatted/converted files:
+#-----------------------------------------------------------------------------------
+for converted_file in converted_images:
+
+    # If file has an acceptable image file extension:
+    exploded_filename = converted_file.split('.')
+    filestem = '.'.join(exploded_filename[:-1])
+    extension = exploded_filename[-1]
+    if extension in image_extensions:
+
+        # If the file has not already been resized:
         if converted_file not in converted_resized_images:
 
             input_file = '"{0}"'.format(os.path.join(images_path, converted_file))
@@ -122,13 +137,8 @@ for submitted_file in submitted_files:
                 run_convert_image(copy_file, resize_dims, copy_file)
                 try_command("chmod 755 " + copy_file)
 
-            # Keep only those converted images with size greater than zero:
-            converted_resized_images = store_nonzero_files(converted_resized_images,
-                                                           resized_images_path)
-                
-    # Non-image files:
-    else:
-        moved_file = os.path.join(nonimages_path, submitted_file)
-        shutil.move(input_file_no_quotes, moved_file)
-        try_command("chmod 755 " + moved_file)
+        # Keep only those converted images with size greater than zero:
+        converted_resized_images = store_nonzero_files(converted_resized_images,
+                                                       resized_images_path)
+
 

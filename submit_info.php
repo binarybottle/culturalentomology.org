@@ -1,7 +1,7 @@
 <?php
-  // submit_info.php is a form for a potential user to upload and annotate files 
+  // submit_info.php is a form to upload and annotate files. 
   //
-  // Website by Arno Klein arno@binarybottle.com . 2016 . Apache v2.0 license
+  // Website by Arno Klein arno@binarybottle.com . 2016-2017 . Apache v2.0 license
   //
   include_once("../db/culturalentomology_db.php");
   include_once("shared/header.html");

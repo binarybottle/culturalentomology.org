@@ -110,7 +110,6 @@ $all_image_extensions = array(
    if ($result && $num_rows>0) {
 
       echo '<form name="myform" method="post" action="admin_edit.php?cmd=search&words='.$searchstring.'&mode='.$mode.'&start='.$range_start.'&stop='.$range_stop.'">';
-//      echo '<form name="myform" method="post" action="admin2.php" enctype="multipart/form-data">';
 
    // Loop through search results      
       $i=1;
@@ -129,6 +128,30 @@ $all_image_extensions = array(
          $image_update           = $row->entry_update;
          $image_registered       = $row->registered;
          $image_hide             = $row->hide;
+         $image_dimensions       = $row->object_dimensions;
+         $image_nation           = $row->nation;
+         $image_state            = $row->state;
+         $image_city             = $row->city;
+         $image_taxon_common_name = $row->taxon_common_name;
+         $image_taxon_order      = $row->taxon_order;
+         $image_taxon_family     = $row->taxon_family;
+         $image_taxon_species    = $row->taxon_species;
+         $image_taxon_common_name2 = $row->taxon_common_name2;
+         $image_taxon_order2      = $row->taxon_order2;
+         $image_taxon_family2     = $row->taxon_family2;
+         $image_taxon_species2    = $row->taxon_species2;
+         $image_taxon_common_name3 = $row->taxon_common_name3;
+         $image_taxon_order3      = $row->taxon_order3;
+         $image_taxon_family3     = $row->taxon_family3;
+         $image_taxon_species3    = $row->taxon_species3;
+         $image_taxon_common_name4 = $row->taxon_common_name4;
+         $image_taxon_order4      = $row->taxon_order4;
+         $image_taxon_family4     = $row->taxon_family4;
+         $image_taxon_species4    = $row->taxon_species4;
+         $image_url               = $row->url;
+         $image_permission        = $row->permission_information;
+         $image_citation          = $row->citation;
+         $image_comments          = $row->comments;
 
       // Image
          $converted_filename = '';
@@ -155,7 +178,7 @@ $all_image_extensions = array(
          echo '  <td width="240">';
 
          if (strlen($converted_filename) > 0) {
-             echo '   <img src="' . $converted_images_path . '/' . $converted_filename . '" border="0" width="120">';
+             echo '   <img src="' . $converted_images_path . '/' . $converted_filename . '" border="0" width="480">';
          }
          echo '   <span class="font80">'.$image_ID.'</span>';
          echo '  </td>';
@@ -166,9 +189,9 @@ $all_image_extensions = array(
          echo '<div class="font80" color="#996663"><i>';
          echo 'File: '.$image_file.'<br>';
          echo '<input type="hidden" name="myform[file'.$i.']" value="'.$image_file.'">';
-         echo 'Title:      <br><input type="text" size="65" name="myform[update_title'.$i.']"   value="'.$image_title     .'"><br>';
+         echo 'Title:      <br><input type="text" size="65" name="myform[update_title'.$i.']"   value="'.htmlentities($image_title)     .'"><br>';
 
-         echo 'Start date:       <input type="text" size="5"  name="myform[update_date'.$i.']"    value="'.$image_date      .'">';https://panel.dreamhost.com/ 
+         echo 'Start date:       <input type="text" size="5"  name="myform[update_date'.$i.']"    value="'.htmlentities($image_date)      .'">';https://panel.dreamhost.com/ 
          echo '&nbsp;&nbsp;&nbsp;&nbsp;';
          if ($image_date_circa==1) {
                   $circa = 'checked'; $accurate = '';
@@ -176,12 +199,63 @@ $all_image_extensions = array(
          }
          echo 'Circa: Y              <input type="radio"          name="myform[update_circa'.$i.']"   value="1" '.$circa        .'>';
          echo 'N                     <input type="radio"          name="myform[update_circa'.$i.']"   value="0" '.$accurate     .'><br>';
-         echo 'Medium:         <br><input type="text" size="65" name="myform[update_medium'.$i.']"  value="'.$image_medium    .'"><br>';
-         echo 'Creator:        <br><input type="text" size="65" name="myform[update_creator'.$i.']" value="'.$image_creator   .'"><br>';
+         echo 'Medium:         <br><input type="text" size="65" name="myform[update_medium'.$i.']"  value="'.htmlentities($image_medium)    .'"><br>';
+         echo 'Creator:        <br><input type="text" size="65" name="myform[update_creator'.$i.']" value="'.htmlentities($image_creator)   .'"><br>';
          echo 'Notes:          <br><textarea cols="75" rows="5" name="myform[update_notes'.$i.']">'
-                                                                 .$image_notes          .'</textarea><br>';
+                                                                 .htmlentities($image_notes)          .'</textarea><br>';
          echo 'Collection:     <br><textarea cols="75" rows="1" name="myform[update_collection'.$i.']">'
-                                                                 .$image_collection     .'</textarea><br>';
+                                                                 .htmlentities($image_collection)     .'</textarea><br>';
+
+         echo 'Dimensions:     <br><textarea cols="75" rows="1" name="myform[update_dimensions'.$i.']">'
+                                                                 .htmlentities($image_dimensions)     .'</textarea><br>';
+         echo 'Nation:     <br><textarea cols="75" rows="1" name="myform[update_nation'.$i.']">'
+                                                                 .htmlentities($image_nation)     .'</textarea><br>';
+         echo 'State:     <br><textarea cols="75" rows="1" name="myform[update_state'.$i.']">'
+                                                                 .htmlentities($image_state)     .'</textarea><br>';
+         echo 'City:     <br><textarea cols="75" rows="1" name="myform[update_city'.$i.']">'
+                                                                 .htmlentities($image_city)     .'</textarea><br>';
+         echo 'Taxon_Common_Name:     <br><textarea cols="75" rows="1" name="myform[update_taxon_common_name'.$i.']">'
+                                                                 .htmlentities($image_taxon_common_name)     .'</textarea><br>';
+         echo 'Taxon_Order:     <br><textarea cols="75" rows="1" name="myform[update_taxon_order'.$i.']">'
+                                                                 .htmlentities($image_taxon_order)     .'</textarea><br>';
+         echo 'Taxon_Family:     <br><textarea cols="75" rows="1" name="myform[update_taxon_family'.$i.']">'
+                                                                 .htmlentities($image_taxon_family)     .'</textarea><br>';
+         echo 'Taxon_Species:     <br><textarea cols="75" rows="1" name="myform[update_taxon_species'.$i.']">'
+                                                                 .htmlentities($image_taxon_species)     .'</textarea><br>';
+         echo 'Taxon_Common_Name2:     <br><textarea cols="75" rows="1" name="myform[update_taxon_common_name2'.$i.']">'
+                                                                 .htmlentities($image_taxon_common_name2)     .'</textarea><br>';
+         echo 'Taxon_Order2:     <br><textarea cols="75" rows="1" name="myform[update_taxon_order2'.$i.']">'
+                                                                 .htmlentities($image_taxon_order2)     .'</textarea><br>';
+         echo 'Taxon_Family2:     <br><textarea cols="75" rows="1" name="myform[update_taxon_family2'.$i.']">'
+                                                                 .htmlentities($image_taxon_family2)     .'</textarea><br>';
+         echo 'Taxon_Species2:     <br><textarea cols="75" rows="1" name="myform[update_taxon_species2'.$i.']">'
+                                                                 .htmlentities($image_taxon_species2)     .'</textarea><br>';
+         echo 'Taxon_Common_Name3:     <br><textarea cols="75" rows="1" name="myform[update_taxon_common_name3'.$i.']">'
+                                                                 .htmlentities($image_taxon_common_name3)     .'</textarea><br>';
+         echo 'Taxon_Order3:     <br><textarea cols="75" rows="1" name="myform[update_taxon_order3'.$i.']">'
+                                                                 .htmlentities($image_taxon_order3)     .'</textarea><br>';
+         echo 'Taxon_Family3:     <br><textarea cols="75" rows="1" name="myform[update_taxon_family3'.$i.']">'
+                                                                 .htmlentities($image_taxon_family3)     .'</textarea><br>';
+         echo 'Taxon_Species3:     <br><textarea cols="75" rows="1" name="myform[update_taxon_species3'.$i.']">'
+                                                                 .htmlentities($image_taxon_species3)     .'</textarea><br>';
+         echo 'Taxon_Common_Name4:     <br><textarea cols="75" rows="1" name="myform[update_taxon_common_name4'.$i.']">'
+                                                                 .htmlentities($image_taxon_common_name4)     .'</textarea><br>';
+         echo 'Taxon_Order4:     <br><textarea cols="75" rows="1" name="myform[update_taxon_order4'.$i.']">'
+                                                                 .htmlentities($image_taxon_order4)     .'</textarea><br>';
+         echo 'Taxon_Family4:     <br><textarea cols="75" rows="1" name="myform[update_taxon_family4'.$i.']">'
+                                                                 .htmlentities($image_taxon_family4)     .'</textarea><br>';
+         echo 'Taxon_Species4:     <br><textarea cols="75" rows="1" name="myform[update_taxon_species4'.$i.']">'
+                                                                 .htmlentities($image_taxon_species4)     .'</textarea><br>';
+
+         echo 'Url:     <br><textarea cols="75" rows="1" name="myform[update_url'.$i.']">'
+                                                                 .htmlentities($image_url)     .'</textarea><br>';
+         echo 'Permission:     <br><textarea cols="75" rows="1" name="myform[update_permission'.$i.']">'
+                                                                 .htmlentities($image_permission)     .'</textarea><br>';
+         echo 'Citation:     <br><textarea cols="75" rows="1" name="myform[update_citation'.$i.']">'
+                                                                 .htmlentities($image_citation)     .'</textarea><br>';
+         echo 'Comments:     <br><textarea cols="75" rows="1" name="myform[update_comments'.$i.']">'
+                                                                 .htmlentities($image_comments)     .'</textarea><br>';
+
          echo 'Input date:           <input type="text" size="8"  name="myform[update_indate'.$i.']" value="'.$image_indate     .'">';
          echo '&nbsp;&nbsp;&nbsp;&nbsp;';
          echo 'Latest update:        <input type="text" size="8"  name="myform[update_update'.$i.']" value="'. $image_update .'">';
@@ -242,6 +316,31 @@ $all_image_extensions = array(
               $image_creator        = trim(mysql_real_escape_string(stripslashes($values['update_creator'.$i2])));
               $image_notes          = trim(mysql_real_escape_string(stripslashes($values['update_notes'.$i2])));
               $image_collection     = trim(mysql_real_escape_string(stripslashes($values['update_collection'.$i2])));
+              $image_dimensions     = trim(mysql_real_escape_string(stripslashes($values['update_dimensions'.$i2])));
+              $image_nation     = trim(mysql_real_escape_string(stripslashes($values['update_nation'.$i2])));
+              $image_state     = trim(mysql_real_escape_string(stripslashes($values['update_state'.$i2])));
+              $image_city     = trim(mysql_real_escape_string(stripslashes($values['update_city'.$i2])));
+              $image_taxon_common_name     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_common_name'.$i2])));
+              $image_taxon_order     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_order'.$i2])));
+              $image_taxon_family     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_family'.$i2])));
+              $image_taxon_species     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_species'.$i2])));
+              $image_taxon_common_name2     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_common_name2'.$i2])));
+              $image_taxon_order2     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_order2'.$i2])));
+              $image_taxon_family2     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_family2'.$i2])));
+              $image_taxon_species2     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_species2'.$i2])));
+              $image_taxon_common_name3     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_common_name3'.$i2])));
+              $image_taxon_order3     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_order3'.$i2])));
+              $image_taxon_family3     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_family3'.$i2])));
+              $image_taxon_species3     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_species3'.$i2])));
+              $image_taxon_common_name4     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_common_name4'.$i2])));
+              $image_taxon_order4     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_order4'.$i2])));
+              $image_taxon_family4     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_family4'.$i2])));
+              $image_taxon_species4     = trim(mysql_real_escape_string(stripslashes($values['update_taxon_species4'.$i2])));
+              $image_url     = trim(mysql_real_escape_string(stripslashes($values['update_url'.$i2])));
+              $image_permission     = trim(mysql_real_escape_string(stripslashes($values['update_permission'.$i2])));
+              $image_citation     = trim(mysql_real_escape_string(stripslashes($values['update_citation'.$i2])));
+              $image_comments     = trim(mysql_real_escape_string(stripslashes($values['update_comments'.$i2])));
+
               $image_indate         = trim(mysql_real_escape_string(stripslashes($values['update_indate'.$i2])));
               $image_update         = trim(mysql_real_escape_string(stripslashes($values['update_update'.$i2])));
               $image_registered     = trim(mysql_real_escape_string(stripslashes($values['update_registered'.$i2])));
@@ -257,6 +356,30 @@ $all_image_extensions = array(
               $sql2 .= 'creator        = "'.$image_creator.'", ';
               $sql2 .= 'description    = "'.$image_notes.'", ';
               $sql2 .= 'collection     = "'.$image_collection.'", ';
+              $sql2 .= 'object_dimensions     = "'.$image_dimensions.'", ';
+              $sql2 .= 'nation     = "'.$image_nation.'", ';
+              $sql2 .= 'state     = "'.$image_state.'", ';
+              $sql2 .= 'city     = "'.$image_city.'", ';
+              $sql2 .= 'taxon_common_name     = "'.$image_taxon_common_name.'", ';
+              $sql2 .= 'taxon_order     = "'.$image_taxon_order.'", ';
+              $sql2 .= 'taxon_family     = "'.$image_taxon_family.'", ';
+              $sql2 .= 'taxon_species     = "'.$image_taxon_species.'", ';
+              $sql2 .= 'taxon_common_name2     = "'.$image_taxon_common_name2.'", ';
+              $sql2 .= 'taxon_order2     = "'.$image_taxon_order2.'", ';
+              $sql2 .= 'taxon_family2     = "'.$image_taxon_family2.'", ';
+              $sql2 .= 'taxon_species2     = "'.$image_taxon_species2.'", ';
+              $sql2 .= 'taxon_common_name3     = "'.$image_taxon_common_name3.'", ';
+              $sql2 .= 'taxon_order3     = "'.$image_taxon_order3.'", ';
+              $sql2 .= 'taxon_family3     = "'.$image_taxon_family3.'", ';
+              $sql2 .= 'taxon_species3     = "'.$image_taxon_species3.'", ';
+              $sql2 .= 'taxon_common_name4     = "'.$image_taxon_common_name4.'", ';
+              $sql2 .= 'taxon_order4     = "'.$image_taxon_order4.'", ';
+              $sql2 .= 'taxon_family4     = "'.$image_taxon_family4.'", ';
+              $sql2 .= 'taxon_species4     = "'.$image_taxon_species4.'", ';
+              $sql2 .= 'url     = "'.$image_url.'", ';
+              $sql2 .= 'permission_information     = "'.$image_permission.'", ';
+              $sql2 .= 'citation     = "'.$image_citation.'", ';
+              $sql2 .= 'comments     = "'.$image_comments.'", ';
               $sql2 .= 'entry_date     = "'.$image_indate.'", ';
               $sql2 .= 'entry_update   = "'.$image_update.'", ';
               $sql2 .= 'registered     = "'.$image_registered.'", ';
@@ -264,7 +387,7 @@ $all_image_extensions = array(
               $sql2 .= ' WHERE pk_object_id  = "'.$image_ID.'" ';
 
 	      // Print query:
-              //echo '<br>'.$sql2.'<br>';
+              echo '<br>'.$sql2.'<br>';
 
               $result2 = mysql_query($sql2) or die (mysql_error());           
 

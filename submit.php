@@ -27,7 +27,8 @@ if ($_POST['submitForm'] == "Submit") {
         }
         else {
             $submit_first = $_POST['submit_first'];
-            $submit_first = trim(mysql_real_escape_string($submit_first));
+//            $submit_first = trim(mysql_real_escape_string($submit_first));
+            $submit_first = trim($submit_first);
         }
     
         if ($_POST['submit_last'] == "") {
@@ -37,7 +38,8 @@ if ($_POST['submitForm'] == "Submit") {
         }
         else {
             $submit_last = $_POST['submit_last'];
-            $submit_last = trim(mysql_real_escape_string($submit_last));
+            $submit_last = trim($submit_last);
+//            $submit_last = trim(mysql_real_escape_string($submit_last));
         }
     
         if ($_POST['submit_email'] == "") {
@@ -53,7 +55,8 @@ if ($_POST['submitForm'] == "Submit") {
                       <i>Your <b>email address</b> is invalid.</i></span><br />';
             }
             else {
-                $submit_email = trim(mysql_real_escape_string($submit_email));
+//                $submit_email = trim(mysql_real_escape_string($submit_email));
+                $submit_email = trim($submit_email);
             }
         }
         $debug = $_POST['debug'];
@@ -102,7 +105,7 @@ if ($_POST['submitForm'] == "Submit") {
   <p>You can help us expand the database with well-annotated examples of cultural entomology. Please type in your name and email address to register as a contributor:</p> 
 
   <table border="0" cellspacing="0" cellpadding="5">
-    <input name="date" type="hidden" id="date" value="<? print date("m.d.y");  ?>" />
+    <input name="date" type="hidden" id="date" value='<? print date("m.d.y");  ?>' />
     <tr>
       <td align="right" class="art_display_info">First name:</td>
       <td>

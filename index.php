@@ -52,8 +52,10 @@ $all_image_extensions = array(
 
   $bool = ' IN BOOLEAN MODE ';
 
-  $range_start  = mysql_real_escape_string($_GET['start']);
-  $range_stop   = mysql_real_escape_string($_GET['stop']);
+//  $range_start  = mysql_real_escape_string($_GET['start']);
+//  $range_stop   = mysql_real_escape_string($_GET['stop']);
+  $range_start  = $_GET['start'];
+  $range_stop   = $_GET['stop'];
   if (strlen(trim($range_start))>0 && strlen(trim($range_stop))>0) {
            $sql = "SELECT * FROM objects
                    WHERE pk_object_id >= " . (int)$range_start . 
@@ -63,15 +65,12 @@ $all_image_extensions = array(
   else {
         $words = $_GET['words'];
         if (strlen($words) > 0) {  
-           $searchstring = mysql_real_escape_string($words);
+//           $searchstring = mysql_real_escape_string($words);
+           $searchstring = $words;
         } else {
            $searchstring = $default_searchstring;
         }
 
-  /* SQL query:
-     ALTER TABLE `objects` ADD FULLTEXT(`title`,`category1`,`category2`,`category3`,`category4`,`creator`,`year`,`object_medium`,`time_period`,`nation`,`state`,`city`,`taxon_common_name`,`taxon_order`,`taxon_family`,`taxon_species`,`collection`,`citation`,`description`,`permission_information`)
-     #1070 - Too many key parts specified; max 16 parts allowed
-  */
   $sql = "SELECT *, MATCH(title,category1,category2,category3,creator,object_medium,time_period,nation,state,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,description)
           AGAINST ('$searchstring' $bool) AS score FROM objects
           WHERE MATCH(title,category1,category2,category3,creator,object_medium,time_period,nation,state,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,description)
@@ -79,26 +78,28 @@ $all_image_extensions = array(
           AND hide='0' AND registered='1'
           ORDER BY pk_object_id ASC, score";
           //ORDER BY entry_date DESC, entry_update ASC, score";
-
   }
 
-  $result = mysql_query($sql) or die (mysql_error());
+  $result = mysqli_query($link,$sql) or die (mysql_error());
 
   echo '<br>';
 
-  if (mysql_num_rows($result)==1) {
-     echo '<div class="foundresults">1 result for <b>'.$searchstring.'</b>:  </div>';
+  if (mysqli_num_rows($result)==1) {
+     echo '<div class="foundresults">1 result for <b>"'.$searchstring.'"</b>:  </div>';
   }
   else {
-     echo '<div class="foundresults">' . mysql_num_rows($result) . ' results for <b>'.$searchstring.'</b>: </div>';
+     echo '<div class="foundresults">' . mysqli_num_rows($result) . ' results for <b>"'.$searchstring.'"</b>: </div>';
   }
 
   // This whole loop is repeated in submit_review.php
   // except for "// Show files if images" portion
+
   if ($result) {
 
     // Loop through search results
-    while($row = mysql_fetch_object($result)) {
+    while($row = mysqli_fetch_object($result)) {
+      $hide = $row->hide;
+      if ($hide==0) {
         $object_ID = $row->pk_object_id;
         $filename1 = $row->filename1;
         $filename2 = $row->filename2;
@@ -363,6 +364,7 @@ $all_image_extensions = array(
             }
         }
         echo '<span class="idfont">#'.$object_ID.'</span><br>';
+      }
     }
   }
 

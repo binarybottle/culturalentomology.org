@@ -429,7 +429,7 @@ if ($_POST['submitForm2'] == "Respond")
                 $extension = end(explode(".", $filename));
                 if ( in_array($extension, $image_extensions_for_viewing ) ) {
                     $converted_filename = str_replace($extension, $converted_image_extension, $filename);
-                    echo '<a href="'.$converted_images_path.'/'.$converted_filename.'" target="_blank"><img src="'.$converted_images_path.'/'.$converted_filename.'" width="480" border="0"></a><span class="font80">'.$converted_images_path.'/'.$converted_filename.'</span><br>';
+                    echo '<a href="'.$images_path.'/'.$converted_filename.'" target="_blank"><img src="'.$images_path.'/'.$converted_filename.'" width="480" border="0"></a><span class="font80">'.$images_path.'/'.$converted_filename.'</span><br>';
                 } else {
                     echo '<span class="tip">File: </span><a href="'.$moved_nonimages_path.'/'.$filename.'" target="_blank">'.$moved_nonimages_path.'/'.$filename.'</a><br>';
                 }

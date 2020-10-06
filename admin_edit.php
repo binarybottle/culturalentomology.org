@@ -86,7 +86,8 @@ $all_image_extensions = array(
            $sql = "SELECT * FROM objects
                    WHERE MATCH(title,category1,category2,category3,creator,object_medium,time_period,nation,state,city,taxon_common_name,taxon_order,taxon_family,taxon_species,collection,description)
                    AGAINST ('$searchstring' $bool)
-                     AND pk_object_id >= " . (int)$range_start . 
+                     AND registered = 1 
+		     AND pk_object_id >= " . (int)$range_start . 
                    " AND pk_object_id <= " . (int)$range_stop .
                    " ORDER BY pk_object_id ASC";
 
@@ -117,13 +118,18 @@ $all_image_extensions = array(
       {
          $image_ID               = $row->pk_object_id;
          $image_title            = $row->title;
+         $image_category1        = $row->category1;
+         $image_category2        = $row->category2;
+         $image_category3        = $row->category3;
+         $image_category4        = $row->category4;
          $image_file             = $row->filename1;
          $image_collection       = $row->collection;
          $image_creator          = $row->creator;
          $image_medium           = $row->object_medium;
          $image_notes            = $row->description;
          $image_date             = $row->year;
-         $image_date_circa       = $row->time_period;
+#         $image_date_circa       = $row->date_circa;
+         $image_time_period      = $row->time_period;
          $image_indate           = $row->entry_date;
          $image_update           = $row->entry_update;
          $image_registered       = $row->registered;
@@ -191,14 +197,24 @@ $all_image_extensions = array(
          echo '<input type="hidden" name="myform[file'.$i.']" value="'.$image_file.'">';
          echo 'Title:      <br><input type="text" size="65" name="myform[update_title'.$i.']"   value="'.htmlentities($image_title)     .'"><br>';
 
-         echo 'Start date:       <input type="text" size="5"  name="myform[update_date'.$i.']"    value="'.htmlentities($image_date)      .'">';https://panel.dreamhost.com/ 
+         echo 'Category1:     <br><textarea cols="75" rows="1" name="myform[update_category1'.$i.']">'
+                                                                 .htmlentities($image_category1)     .'</textarea><br>';
+         echo 'Category2:     <br><textarea cols="75" rows="1" name="myform[update_category2'.$i.']">'
+                                                                 .htmlentities($image_category2)     .'</textarea><br>';
+         echo 'Category3:     <br><textarea cols="75" rows="1" name="myform[update_category3'.$i.']">'
+                                                                 .htmlentities($image_category3)     .'</textarea><br>';
+         echo 'Category4:     <br><textarea cols="75" rows="1" name="myform[update_category4'.$i.']">'
+                                                                 .htmlentities($image_category4)     .'</textarea><br>';
+         echo 'Time period:       <input type="text" size="5"  name="myform[update_time_period'.$i.']"    value="'.htmlentities($image_time_period)      .'">';
          echo '&nbsp;&nbsp;&nbsp;&nbsp;';
-         if ($image_date_circa==1) {
-                  $circa = 'checked'; $accurate = '';
-         } else { $circa = '';        $accurate = 'checked';
-         }
-         echo 'Circa: Y              <input type="radio"          name="myform[update_circa'.$i.']"   value="1" '.$circa        .'>';
-         echo 'N                     <input type="radio"          name="myform[update_circa'.$i.']"   value="0" '.$accurate     .'><br>';
+         echo 'Start date:       <input type="text" size="5"  name="myform[update_date'.$i.']"    value="'.htmlentities($image_date)      .'">';
+         echo '&nbsp;&nbsp;&nbsp;&nbsp;';
+#         if ($image_date_circa==1) {
+#                  $circa = 'checked'; $accurate = '';
+#         } else { $circa = '';        $accurate = 'checked';
+#         }
+#         echo 'Circa: Y              <input type="radio"          name="myform[update_circa'.$i.']"   value="1" '.$circa        .'>';
+#         echo 'N                     <input type="radio"          name="myform[update_circa'.$i.']"   value="0" '.$accurate     .'><br>';
          echo 'Medium:         <br><input type="text" size="65" name="myform[update_medium'.$i.']"  value="'.htmlentities($image_medium)    .'"><br>';
          echo 'Creator:        <br><input type="text" size="65" name="myform[update_creator'.$i.']" value="'.htmlentities($image_creator)   .'"><br>';
          echo 'Notes:          <br><textarea cols="75" rows="5" name="myform[update_notes'.$i.']">'
@@ -310,7 +326,12 @@ $all_image_extensions = array(
               $i2=$i2+1;
 
               $image_title          = trim(mysql_real_escape_string(stripslashes($values['update_title'.$i2])));
-              $image_date_circa     = trim(mysql_real_escape_string(stripslashes($values['update_circa'.$i2])));
+              $image_category1      = trim(mysql_real_escape_string(stripslashes($values['update_category1'.$i2])));
+              $image_category2      = trim(mysql_real_escape_string(stripslashes($values['update_category2'.$i2])));
+              $image_category3      = trim(mysql_real_escape_string(stripslashes($values['update_category3'.$i2])));
+              $image_category4      = trim(mysql_real_escape_string(stripslashes($values['update_category4'.$i2])));
+              $image_time_period    = trim(mysql_real_escape_string(stripslashes($values['update_time_period'.$i2])));
+#              $image_date_circa     = trim(mysql_real_escape_string(stripslashes($values['update_circa'.$i2])));
               $image_date           = trim(mysql_real_escape_string(stripslashes($values['update_date'.$i2])));
               $image_medium         = trim(mysql_real_escape_string(stripslashes($values['update_medium'.$i2])));
               $image_creator        = trim(mysql_real_escape_string(stripslashes($values['update_creator'.$i2])));
@@ -350,8 +371,13 @@ $all_image_extensions = array(
               $sql2  = 'UPDATE objects SET ';
 
               $sql2 .= 'title          = "'.$image_title.'", ';
-              $sql2 .= 'time_period    = "'.$image_date_circa.'", ';
+              $sql2 .= 'category1      = "'.$image_category1.'", ';
+              $sql2 .= 'category2      = "'.$image_category2.'", ';
+              $sql2 .= 'category3      = "'.$image_category3.'", ';
+              $sql2 .= 'category4      = "'.$image_category4.'", ';
+              $sql2 .= 'time_period    = "'.$image_time_period.'", ';
               $sql2 .= 'year           = "'.$image_date.'", ';
+#              $sql2 .= 'date_circa     = "'.$image_date_circa.'", ';
               $sql2 .= 'object_medium  = "'.$image_medium.'", ';
               $sql2 .= 'creator        = "'.$image_creator.'", ';
               $sql2 .= 'description    = "'.$image_notes.'", ';

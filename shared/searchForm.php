@@ -18,13 +18,13 @@ function searchForm()
   echo '<input type="hidden" name="cmd" value="search" />';
   echo '<span class="searchcaptions">Text: <input type="text" size="60" name="words" value="'.$searchwords.'" /> ';
   echo '&nbsp;</span>';
-  echo '<br /><br />';
-
-  echo 'Start ID: <input type="text" size="6" name="start" value="'.$range_start.'" /> ';
-  echo '&nbsp;&nbsp; End ID: <input type="text" size="6" name="stop" value="'.$range_stop.'" /></i></font> ';
-
   echo '<input type="submit" value="Search" />';
 
+  echo '<br /><br />';
+
+  echo 'OR filter by image ID numbers: Start ID: <input type="text" size="6" name="start" value="'.$range_start.'" /> ';
+  echo '&nbsp;&nbsp; End ID: <input type="text" size="6" name="stop" value="'.$range_stop.'" /></i></font> ';
+ 
   echo '<br /><br />';
 
 /*

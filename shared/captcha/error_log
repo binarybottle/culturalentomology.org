@@ -1,1 +1,0 @@
-[08-Jan-2009 11:55:59] PHP Warning:  imagettfbbox() [<a href='function.imagettfbbox'>function.imagettfbbox</a>]: Could not find/open font in /home/kleina/public_html/infovis/shared/captcha/CaptchaSecurityImages.php on line 61

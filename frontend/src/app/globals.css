@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Colors inspired by entomology specimens - warm amber, forest green, deep browns */
+  --color-amber-glow: #f4a520;
+  --color-forest: #2d5016;
+  --color-bark: #3d2914;
+  --color-cream: #faf6ed;
+  --color-parchment: #f5ede0;
+  --color-specimen: #1a1510;
+  --color-wing: rgba(255, 248, 235, 0.9);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-surface-100 via-surface-50 to-surface-100;
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    min-height: 100vh;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Crimson Pro', Georgia, serif;
+  }
+}
+
+@layer components {
+  /* Main navigation */
+  .nav-link {
+    @apply relative px-4 py-2 text-surface-700 hover:text-primary-600 transition-colors duration-200;
+  }
+  
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 w-0 h-0.5 bg-primary-500 transition-all duration-300;
+    transform: translateX(-50%);
+  }
+  
+  .nav-link:hover::after {
+    @apply w-3/4;
+  }
+  
+  .nav-link.active {
+    @apply text-primary-600;
+  }
+  
+  .nav-link.active::after {
+    @apply w-3/4;
+  }
+
+  /* Object cards */
+  .object-card {
+    @apply relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden;
+    @apply border border-surface-200/50;
+  }
+  
+  .object-card:hover {
+    @apply -translate-y-1;
+  }
+  
+  .object-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 z-10;
+  }
+  
+  .object-card:hover::before {
+    @apply opacity-100;
+  }
+  
+  /* Image container with elegant border */
+  .image-frame {
+    @apply relative bg-surface-100 rounded-lg overflow-hidden;
+    box-shadow: 
+      inset 0 2px 4px rgba(0,0,0,0.1),
+      0 2px 8px rgba(0,0,0,0.08);
+  }
+  
+  /* Category pills */
+  .category-pill {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+    @apply bg-primary-100 text-primary-800 border border-primary-200/50;
+  }
+  
+  .taxon-pill {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+    @apply bg-accent-100 text-accent-800 border border-accent-200/50;
+  }
+  
+  /* Search input with elegant styling */
+  .search-input {
+    @apply w-full px-5 py-4 pr-14 text-lg rounded-xl;
+    @apply bg-white border-2 border-surface-200;
+    @apply focus:outline-none focus:border-primary-400 focus:ring-4 focus:ring-primary-100;
+    @apply placeholder:text-surface-400;
+    @apply transition-all duration-200;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  .search-input:focus {
+    box-shadow: 0 4px 20px rgba(237, 119, 18, 0.15);
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg;
+    @apply bg-primary-600 text-white font-semibold;
+    @apply hover:bg-primary-700 active:bg-primary-800;
+    @apply focus:outline-none focus:ring-4 focus:ring-primary-200;
+    @apply transition-all duration-200;
+    @apply shadow-md hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg;
+    @apply bg-surface-100 text-surface-800 font-semibold border-2 border-surface-300;
+    @apply hover:bg-surface-200 hover:border-surface-400;
+    @apply focus:outline-none focus:ring-4 focus:ring-surface-200;
+    @apply transition-all duration-200;
+  }
+  
+  .btn-accent {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg;
+    @apply bg-accent-600 text-white font-semibold;
+    @apply hover:bg-accent-700 active:bg-accent-800;
+    @apply focus:outline-none focus:ring-4 focus:ring-accent-200;
+    @apply transition-all duration-200;
+    @apply shadow-md hover:shadow-lg;
+  }
+  
+  /* Detail info rows */
+  .info-row {
+    @apply flex flex-wrap gap-x-2 py-2 border-b border-surface-100;
+  }
+  
+  .info-label {
+    @apply text-surface-500 font-medium text-sm min-w-[120px];
+  }
+  
+  .info-value {
+    @apply text-surface-800 flex-1;
+  }
+  
+  /* Hero section with specimen-inspired background */
+  .hero-section {
+    @apply relative overflow-hidden;
+    background: 
+      linear-gradient(135deg, var(--color-parchment) 0%, var(--color-cream) 100%);
+  }
+  
+  .hero-section::before {
+    content: '';
+    @apply absolute inset-0 opacity-5;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  /* Filter sidebar */
+  .filter-section {
+    @apply bg-white rounded-xl p-5 shadow-sm border border-surface-100;
+  }
+  
+  .filter-title {
+    @apply text-sm font-semibold text-surface-600 uppercase tracking-wider mb-3;
+  }
+  
+  /* Loading skeleton */
+  .skeleton {
+    @apply animate-pulse bg-surface-200 rounded;
+  }
+  
+  /* Taxonomy tree visualization */
+  .taxon-tree {
+    @apply pl-4 border-l-2 border-accent-200;
+  }
+  
+  .taxon-tree-item {
+    @apply relative py-1 text-sm text-surface-700;
+  }
+  
+  .taxon-tree-item::before {
+    content: '';
+    @apply absolute -left-4 top-1/2 w-3 h-0.5 bg-accent-200;
+  }
+}
+
+@layer utilities {
+  /* Elegant text shadow for headers over images */
+  .text-shadow-elegant {
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  
+  /* Glassmorphism effect */
+  .glass {
+    backdrop-filter: blur(12px);
+    @apply bg-white/80;
+  }
+  
+  /* Subtle grain texture */
+  .grain {
+    position: relative;
+  }
+  
+  .grain::after {
+    content: '';
+    @apply absolute inset-0 opacity-[0.03] pointer-events-none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+  
+  /* Fade in animation */
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Staggered fade in for lists */
+  .stagger-fade > * {
+    animation: fadeIn 0.4s ease-out both;
+  }
+  
+  .stagger-fade > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-fade > *:nth-child(2) { animation-delay: 0.1s; }
+  .stagger-fade > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger-fade > *:nth-child(4) { animation-delay: 0.2s; }
+  .stagger-fade > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger-fade > *:nth-child(6) { animation-delay: 0.3s; }
+  .stagger-fade > *:nth-child(7) { animation-delay: 0.35s; }
+  .stagger-fade > *:nth-child(8) { animation-delay: 0.4s; }
+}
+

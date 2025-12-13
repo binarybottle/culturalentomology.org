@@ -1,9 +1,38 @@
-supabase
-php
-submitted*
-decor
+# Directories
+supabase/
+php/
+submitted*/
+decor/
+.temp/
+node_modules/
+.vercel/
+.next/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Database and migration files
+*.sql
+*.csv
+*.load
+*migration*/
+arnoldkleingallery_migration/
+infovis_migration/
+
+# Scripts with potential secrets
+sync_cloudflare_images.py
+migrate_*.py
+extract_*.py
+convert_*.py
+fix_*.py
+
+# Misc
 .htaccess
 x
 *~
 .*~
 #*
+.DS_Store
+*.log

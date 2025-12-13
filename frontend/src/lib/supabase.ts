@@ -167,11 +167,15 @@ export async function getObjects(options?: {
     .range((page - 1) * pageSize, page * pageSize - 1);
   
   if (options?.category) {
-    query = query.or(`category1.ilike.%${options.category}%,category2.ilike.%${options.category}%,category3.ilike.%${options.category}%,category4.ilike.%${options.category}%`);
+    // Escape special characters for PostgREST
+    const escapedCategory = options.category.replace(/[()]/g, '');
+    query = query.or(`category1.ilike.%${escapedCategory}%,category2.ilike.%${escapedCategory}%,category3.ilike.%${escapedCategory}%,category4.ilike.%${escapedCategory}%`);
   }
   
   if (options?.taxonOrder) {
-    query = query.or(`taxon_order.ilike.%${options.taxonOrder}%,taxon_order2.ilike.%${options.taxonOrder}%,taxon_order3.ilike.%${options.taxonOrder}%,taxon_order4.ilike.%${options.taxonOrder}%`);
+    // Escape special characters for PostgREST
+    const escapedTaxonOrder = options.taxonOrder.replace(/[()]/g, '');
+    query = query.or(`taxon_order.ilike.%${escapedTaxonOrder}%,taxon_order2.ilike.%${escapedTaxonOrder}%,taxon_order3.ilike.%${escapedTaxonOrder}%,taxon_order4.ilike.%${escapedTaxonOrder}%`);
   }
   
   if (options?.nation) {
@@ -226,40 +230,33 @@ export async function searchObjects(
   
   // Try full-text search first
   try {
-    const searchPattern = `%${query}%`;
+    // Strip out Boolean operators for simple search
+    const cleanQuery = query
+      .replace(/[+\-"]/g, ' ')  // Remove Boolean operators
+      .replace(/\s+/g, ' ')      // Normalize spaces
+      .trim();
+    
+    const searchPattern = `%${cleanQuery}%`;
     
     let dbQuery = supabase
       .from('objects')
       .select('*', { count: 'exact' })
       .eq('hide', 0)
       .eq('registered', 1)
-      .or(`
-        title.ilike.${searchPattern},
-        description.ilike.${searchPattern},
-        category1.ilike.${searchPattern},
-        category2.ilike.${searchPattern},
-        category3.ilike.${searchPattern},
-        creator.ilike.${searchPattern},
-        object_medium.ilike.${searchPattern},
-        time_period.ilike.${searchPattern},
-        nation.ilike.${searchPattern},
-        state.ilike.${searchPattern},
-        city.ilike.${searchPattern},
-        taxon_common_name.ilike.${searchPattern},
-        taxon_order.ilike.${searchPattern},
-        taxon_family.ilike.${searchPattern},
-        taxon_species.ilike.${searchPattern},
-        collection.ilike.${searchPattern}
-      `)
+      .or(`title.ilike.${searchPattern},description.ilike.${searchPattern},category1.ilike.${searchPattern},category2.ilike.${searchPattern},category3.ilike.${searchPattern},creator.ilike.${searchPattern},object_medium.ilike.${searchPattern},time_period.ilike.${searchPattern},nation.ilike.${searchPattern},state.ilike.${searchPattern},city.ilike.${searchPattern},taxon_common_name.ilike.${searchPattern},taxon_order.ilike.${searchPattern},taxon_family.ilike.${searchPattern},taxon_species.ilike.${searchPattern},collection.ilike.${searchPattern}`)
       .order('pk_object_id', { ascending: true })
       .range((page - 1) * pageSize, page * pageSize - 1);
     
     if (options?.category) {
-      dbQuery = dbQuery.or(`category1.ilike.%${options.category}%,category2.ilike.%${options.category}%`);
+      // Escape special characters for PostgREST
+      const escapedCategory = options.category.replace(/[()]/g, '');
+      dbQuery = dbQuery.or(`category1.ilike.%${escapedCategory}%,category2.ilike.%${escapedCategory}%`);
     }
     
     if (options?.taxonOrder) {
-      dbQuery = dbQuery.or(`taxon_order.ilike.%${options.taxonOrder}%,taxon_order2.ilike.%${options.taxonOrder}%`);
+      // Escape special characters for PostgREST
+      const escapedTaxonOrder = options.taxonOrder.replace(/[()]/g, '');
+      dbQuery = dbQuery.or(`taxon_order.ilike.%${escapedTaxonOrder}%,taxon_order2.ilike.%${escapedTaxonOrder}%`);
     }
     
     if (options?.nation) {

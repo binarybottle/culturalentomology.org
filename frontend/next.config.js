@@ -11,10 +11,11 @@ const nextConfig = {
         hostname: '*.supabase.co',
       },
     ],
+    // Use unoptimized for Cloudflare Pages
+    unoptimized: true,
   },
-  // Enable static export for Cloudflare Pages
-  output: 'export',
-  trailingSlash: true,
+  // Don't use 'export' - next-on-pages handles this
+  // output: 'export',
 };
 
 module.exports = nextConfig;

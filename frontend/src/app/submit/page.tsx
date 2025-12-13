@@ -16,6 +16,8 @@ import {
   Calendar,
   Link as LinkIcon
 } from 'lucide-react';
+
+export const runtime = 'edge';
 import { submitContribution } from '@/lib/api';
 
 interface FormData {

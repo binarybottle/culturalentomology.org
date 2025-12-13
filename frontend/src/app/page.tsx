@@ -9,6 +9,8 @@ import ObjectGrid from '@/components/objects/ObjectGrid';
 import FilterSidebar from '@/components/filters/FilterSidebar';
 import { searchObjects, fetchObjects, fetchFilterOptions, CulturalObject, FilterOptions } from '@/lib/api';
 
+export const runtime = 'edge';
+
 function HomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();

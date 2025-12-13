@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+
+// Configure for Cloudflare Pages Edge Runtime
+export const runtime = 'edge';
 import Link from 'next/link';
 import { 
   ArrowLeft, 

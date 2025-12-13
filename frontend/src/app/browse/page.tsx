@@ -6,6 +6,8 @@ import { Bug, Grid, List, ChevronRight } from 'lucide-react';
 import { fetchFilterOptions, fetchObjects, CulturalObject, FilterOptions } from '@/lib/api';
 import ObjectGrid from '@/components/objects/ObjectGrid';
 
+export const runtime = 'edge';
+
 type ViewMode = 'categories' | 'orders' | 'countries' | 'gallery';
 
 export default function BrowsePage() {

@@ -6,8 +6,6 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
 
 [vars]
-# These should be set in Cloudflare Pages dashboard for production
-# NEXT_PUBLIC_SUPABASE_URL = "https://your-project.supabase.co"
-# NEXT_PUBLIC_SUPABASE_ANON_KEY = "your-anon-key"
-# NEXT_PUBLIC_CF_IMAGES_ACCOUNT = "your-cloudflare-account-hash"
+# Environment variables for Cloudflare Pages
+NEXT_PUBLIC_CF_IMAGES_ACCOUNT = "8HA2zssW7KVTY84RTNfJgA"
 

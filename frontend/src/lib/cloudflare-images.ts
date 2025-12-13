@@ -5,8 +5,8 @@
  * Supports fallback to local images during development.
  */
 
-// Cloudflare Images account hash (get from dashboard)
-const CF_ACCOUNT_HASH = process.env.NEXT_PUBLIC_CF_IMAGES_ACCOUNT || '';
+// Cloudflare Images account hash (hardcoded - DO NOT USE ENV VAR as it gets wrong value)
+const CF_ACCOUNT_HASH = '8HA2zssW7KVTY84RTNfJgA';
 
 // Image variants defined in Cloudflare Images dashboard
 export type ImageVariant = 'thumb' | 'medium' | 'large' | 'public';
@@ -36,26 +36,17 @@ export function getCloudflareUrl(cloudflareId: string | null, variant: ImageVari
 export function getImageUrl(
   cloudflareId: string | null,
   localPath: string | null,
-  variant: ImageVariant = 'large',
+  variant: ImageVariant = 'public',
   baseUrl?: string
 ): string {
   // Prefer Cloudflare Images if ID is available
-  const cfUrl = getCloudflareUrl(cloudflareId, variant);
+  const cfUrl = getCloudflareUrl(cloudflareId, 'public'); // Always use 'public' variant for now
   if (cfUrl) {
     return cfUrl;
   }
   
-  // Fallback to local images
-  if (!localPath) {
-    return '/images/placeholder.jpg';
-  }
-  
-  const apiUrl = baseUrl || process.env.NEXT_PUBLIC_API_URL || '';
-  
-  // Choose the right directory based on variant
-  const dir = variant === 'thumb' ? 'thumbs' : 'images';
-  
-  return `${apiUrl}/${dir}/${localPath}`;
+  // If no Cloudflare ID, use placeholder instead of trying to load from non-existent server
+  return '/images/placeholder.svg';
 }
 
 /**
@@ -66,7 +57,7 @@ export function getThumbnailUrl(
   localPath: string | null,
   baseUrl?: string
 ): string {
-  return getImageUrl(cloudflareId, localPath, 'thumb', baseUrl);
+  return getImageUrl(cloudflareId, localPath, 'public', baseUrl);
 }
 
 /**
@@ -75,7 +66,7 @@ export function getThumbnailUrl(
 export function getObjectImageUrls(
   filenames: (string | null)[],
   cloudflareIds: (string | null)[],
-  variant: ImageVariant = 'medium'
+  variant: ImageVariant = 'public'
 ): string[] {
   const urls: string[] = [];
   
@@ -84,7 +75,7 @@ export function getObjectImageUrls(
     const cfId = cloudflareIds[i] || null;
     
     if (filename || cfId) {
-      urls.push(getImageUrl(cfId, filename, variant));
+      urls.push(getImageUrl(cfId, filename, 'public'));
     }
   }
   
@@ -95,6 +86,6 @@ export function getObjectImageUrls(
  * Get placeholder image URL
  */
 export function getPlaceholderUrl(): string {
-  return '/images/placeholder.jpg';
+  return '/images/placeholder.svg';
 }
 

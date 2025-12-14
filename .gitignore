@@ -1,5 +1,7 @@
 # Directories
+media/
 supabase/
+dev/
 php/
 submitted*/
 decor/

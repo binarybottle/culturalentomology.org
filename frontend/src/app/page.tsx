@@ -179,15 +179,15 @@ function HomeContent() {
             {/* Quick stats */}
             <div className="flex flex-wrap justify-center gap-8 mt-12 text-center">
               <div className="fade-in" style={{ animationDelay: '0.2s' }}>
-                <div className="text-3xl font-bold text-primary-600">{total || '10,000+'}</div>
+                <div className="text-3xl font-bold text-primary-600">{total || '534'}</div>
                 <div className="text-sm text-surface-500">Objects</div>
               </div>
               <div className="fade-in" style={{ animationDelay: '0.3s' }}>
-                <div className="text-3xl font-bold text-accent-600">{filterOptions.categories.length || '50+'}</div>
+                <div className="text-3xl font-bold text-accent-600">{filterOptions.categories.length || '41'}</div>
                 <div className="text-sm text-surface-500">Categories</div>
               </div>
               <div className="fade-in" style={{ animationDelay: '0.4s' }}>
-                <div className="text-3xl font-bold text-surface-700">{filterOptions.nations.length || '100+'}</div>
+                <div className="text-3xl font-bold text-surface-700">{filterOptions.nations.length || '34'}</div>
                 <div className="text-sm text-surface-500">Countries</div>
               </div>
             </div>

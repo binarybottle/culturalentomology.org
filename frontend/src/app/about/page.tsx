@@ -224,10 +224,11 @@ export default function AboutPage() {
               You can contribute well-annotated examples of cultural entomology to help build 
               this valuable resource for researchers and enthusiasts worldwide.
             </p>
-            <Link href="/submit" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors">
+            {/* Contribute button hidden for now */}
+            {/* <Link href="/submit" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors">
               Contribute to the Database
               <ArrowRight className="w-5 h-5" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>

@@ -37,24 +37,11 @@ export default function Header() {
             <Link href="/about" className="nav-link">
               About
             </Link>
-            <Link href="/submit" className="nav-link">
+            {/* Contribute link hidden for now */}
+            {/* <Link href="/submit" className="nav-link">
               Contribute
-            </Link>
+            </Link> */}
           </nav>
-
-          {/* Search shortcut (desktop) */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="/"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-100 hover:bg-surface-200 text-surface-600 transition-colors"
-            >
-              <Search className="w-4 h-4" />
-              <span className="text-sm">Search</span>
-              <kbd className="px-2 py-0.5 text-xs bg-surface-200 rounded border border-surface-300">
-                ⌘K
-              </kbd>
-            </Link>
-          </div>
 
           {/* Mobile menu button */}
           <button
@@ -95,13 +82,14 @@ export default function Header() {
               >
                 About
               </Link>
-              <Link
+              {/* Contribute button hidden for now */}
+              {/* <Link
                 href="/submit"
                 className="px-4 py-3 rounded-lg bg-primary-600 text-white font-medium text-center transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contribute
-              </Link>
+              </Link> */}
             </div>
           </nav>
         )}

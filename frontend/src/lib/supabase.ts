@@ -213,7 +213,66 @@ export async function getObject(objectId: number) {
 }
 
 /**
- * Search objects using full-text search
+ * Parse search query with Google-style operators
+ * +word = must contain
+ * -word = must not contain
+ * "phrase" = exact phrase
+ * word = optional (OR)
+ */
+function parseSearchQuery(query: string): {
+  required: string[];
+  excluded: string[];
+  phrases: string[];
+  optional: string[];
+} {
+  const required: string[] = [];
+  const excluded: string[] = [];
+  const phrases: string[] = [];
+  const optional: string[] = [];
+  
+  // Extract quoted phrases first
+  const phraseRegex = /"([^"]+)"/g;
+  let match;
+  let remainingQuery = query;
+  
+  while ((match = phraseRegex.exec(query)) !== null) {
+    const phrase = match[1].trim();
+    if (phrase) {
+      // Check if phrase is required or excluded
+      const beforeQuote = query.substring(0, match.index).trim();
+      if (beforeQuote.endsWith('+')) {
+        required.push(phrase);
+        remainingQuery = remainingQuery.replace(`+"${phrase}"`, ' ');
+      } else if (beforeQuote.endsWith('-')) {
+        excluded.push(phrase);
+        remainingQuery = remainingQuery.replace(`-"${phrase}"`, ' ');
+      } else {
+        phrases.push(phrase);
+        remainingQuery = remainingQuery.replace(`"${phrase}"`, ' ');
+      }
+    }
+  }
+  
+  // Extract individual words with operators
+  const words = remainingQuery.split(/\s+/).filter(w => w.trim());
+  
+  for (const word of words) {
+    if (word.startsWith('+')) {
+      const term = word.substring(1).trim();
+      if (term) required.push(term);
+    } else if (word.startsWith('-')) {
+      const term = word.substring(1).trim();
+      if (term) excluded.push(term);
+    } else if (word.trim()) {
+      optional.push(word.trim());
+    }
+  }
+  
+  return { required, excluded, phrases, optional };
+}
+
+/**
+ * Search objects using full-text search with Boolean operators
  */
 export async function searchObjects(
   query: string,
@@ -228,24 +287,63 @@ export async function searchObjects(
   const page = options?.page || 1;
   const pageSize = options?.pageSize || 20;
   
-  // Try full-text search first
+  // Parse search query
+  const { required, excluded, phrases, optional } = parseSearchQuery(query);
+  
+  // If no search terms, return empty results
+  if (required.length === 0 && excluded.length === 0 && phrases.length === 0 && optional.length === 0) {
+    return {
+      results: [],
+      total: 0,
+      page,
+      pageSize,
+      query
+    };
+  }
+  
   try {
-    // Strip out Boolean operators for simple search
-    const cleanQuery = query
-      .replace(/[+\-"]/g, ' ')  // Remove Boolean operators
-      .replace(/\s+/g, ' ')      // Normalize spaces
-      .trim();
-    
-    const searchPattern = `%${cleanQuery}%`;
-    
+    // Build base query
     let dbQuery = supabase
       .from('objects')
       .select('*', { count: 'exact' })
       .eq('hide', 0)
-      .eq('registered', 1)
-      .or(`title.ilike.${searchPattern},description.ilike.${searchPattern},category1.ilike.${searchPattern},category2.ilike.${searchPattern},category3.ilike.${searchPattern},creator.ilike.${searchPattern},object_medium.ilike.${searchPattern},time_period.ilike.${searchPattern},nation.ilike.${searchPattern},state.ilike.${searchPattern},city.ilike.${searchPattern},taxon_common_name.ilike.${searchPattern},taxon_order.ilike.${searchPattern},taxon_family.ilike.${searchPattern},taxon_species.ilike.${searchPattern},collection.ilike.${searchPattern}`)
+      .eq('registered', 1);
+    
+    // Search fields
+    const searchFields = [
+      'title', 'description', 'category1', 'category2', 'category3',
+      'creator', 'object_medium', 'time_period', 'nation', 'state', 'city',
+      'taxon_common_name', 'taxon_order', 'taxon_family', 'taxon_species', 'collection'
+    ];
+    
+    // Add required terms (must contain - AND)
+    for (const term of [...required, ...phrases]) {
+      const pattern = `%${term}%`;
+      const orConditions = searchFields.map(field => `${field}.ilike.${pattern}`).join(',');
+      dbQuery = dbQuery.or(orConditions);
+    }
+    
+    // Add optional terms (OR - at least one must match if no required terms)
+    if (optional.length > 0 && required.length === 0 && phrases.length === 0) {
+      const allOptionalPatterns = optional.map(term => {
+        const pattern = `%${term}%`;
+        return searchFields.map(field => `${field}.ilike.${pattern}`).join(',');
+      }).join(',');
+      dbQuery = dbQuery.or(allOptionalPatterns);
+    }
+    
+    // Add excluded terms (must NOT contain - NOT)
+    // PostgREST doesn't support complex NOT OR easily, so we filter after fetch
+    const hasExclusions = excluded.length > 0;
+    
+    // If we have exclusions, fetch more results to account for filtering
+    const fetchSize = hasExclusions ? pageSize * 3 : pageSize;
+    const fetchOffset = hasExclusions ? (page - 1) * fetchSize : (page - 1) * pageSize;
+    
+    // Apply order and pagination
+    dbQuery = dbQuery
       .order('pk_object_id', { ascending: true })
-      .range((page - 1) * pageSize, page * pageSize - 1);
+      .range(fetchOffset, fetchOffset + fetchSize - 1);
     
     if (options?.category) {
       // Escape special characters for PostgREST
@@ -269,9 +367,31 @@ export async function searchObjects(
       throw error;
     }
     
+    // Filter out excluded terms in-memory
+    let filteredData = data || [];
+    if (excluded.length > 0) {
+      filteredData = filteredData.filter(obj => {
+        // Check if object contains any excluded term in any field
+        for (const term of excluded) {
+          const termLower = term.toLowerCase();
+          for (const field of searchFields) {
+            const value = (obj as any)[field];
+            if (value && String(value).toLowerCase().includes(termLower)) {
+              return false; // Exclude this object
+            }
+          }
+        }
+        return true; // Keep this object
+      });
+      
+      // Paginate filtered results
+      const start = (page - 1) * pageSize;
+      filteredData = filteredData.slice(start, start + pageSize);
+    }
+    
     return {
-      results: data || [],
-      total: count || 0,
+      results: filteredData,
+      total: filteredData.length,
       page,
       pageSize,
       query

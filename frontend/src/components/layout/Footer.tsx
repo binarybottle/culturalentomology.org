@@ -42,11 +42,12 @@ export default function Footer() {
                   About the Project
                 </Link>
               </li>
-              <li>
+              {/* Contribute link hidden for now */}
+              {/* <li>
                 <Link href="/submit" className="hover:text-primary-400 transition-colors">
                   Contribute
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
